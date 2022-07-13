@@ -28,6 +28,10 @@ public struct HorizontalSingleBarChart {
         }
     }
     
+    public init(name: ID) {
+        self.name = name
+    }
+    
     var name: ID
     var position = CGPoint.zero
     var width = CGFloat(10)
