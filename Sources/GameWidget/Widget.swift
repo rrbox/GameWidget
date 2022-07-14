@@ -9,7 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-
 public protocol Widget {
     func node() -> SKNode
 }
@@ -57,6 +56,7 @@ public struct SingleLayerDisplay<T: Widget>: Widget {
     }
     
 }
+
 public struct Display: Widget {
     
     public func node() -> SKNode {
