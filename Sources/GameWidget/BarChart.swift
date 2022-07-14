@@ -28,11 +28,16 @@ public struct HorizontalSingleBarChart {
         }
     }
     
+    public init(name: ID) {
+        self.name = name
+    }
+    
     var name: ID
     var position = CGPoint.zero
     var width = CGFloat(10)
     var length = CGFloat(100)
     var alignment = HorizontalBarChartAlignmentMode.right
+    var color = SKColor.systemGreen
     var backgroundColor = SKColor.gray
     
     @discardableResult public func width(_ value: CGFloat) -> Self {
@@ -59,6 +64,12 @@ public struct HorizontalSingleBarChart {
         return result
     }
     
+    @discardableResult public func color(_ value: SKColor) -> Self {
+        var result = self
+        result.color = value
+        return result
+    }
+    
     @discardableResult public func backgroundColor(_ value: SKColor) -> Self {
         var result = self
         result.backgroundColor = value
@@ -71,8 +82,11 @@ extension HorizontalSingleBarChart: Widget {
     
     public func node() -> SKNode {
         let result = SKSpriteNode(color: self.backgroundColor, size: CGSize(width: self.length, height: self.width))
+        let bar = SKSpriteNode(color: self.color, size: CGSize(width: self.length, height: self.width))
         result.anchorPoint = self.alignment.anchorPoint()
+        bar.anchorPoint = self.alignment.anchorPoint()
         result.position = self.position
+        result.addChild(bar)
         return result
     }
 }
