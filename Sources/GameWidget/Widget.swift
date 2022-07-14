@@ -19,7 +19,11 @@ public protocol Widget {
     }
 }
 
-public struct RecursiveGroup<T: Widget, U: Widget>: Widget {
+public protocol WidgetGroup: Widget {
+    func widgetNodes() -> [SKNode]
+}
+
+public struct RecursiveGroup<T: WidgetGroup, U: Widget>: WidgetGroup {
     
     var group: T
     var widgets: [U]
@@ -28,23 +32,34 @@ public struct RecursiveGroup<T: Widget, U: Widget>: Widget {
         return .init(group: .init(group: self.group, widgets: self.widgets), widgets: block())
     }
     
+    public func widgetNodes() -> [SKNode] {
+        self.widgets.map { widget in
+            widget.node()
+        } + group.widgetNodes()
+    }
+    
     public func node() -> SKNode {
         let result = SKNode()
-        result.addChild(self.group.node())
-        for i in self.widgets {
-            result.addChild(i.node())
+        for node in self.widgetNodes() {
+            result.addChild(node)
         }
         return result
     }
     
 }
 
-public struct SingleLayerDisplay<T: Widget>: Widget {
+public struct SingleWidgetGroup<T: Widget>: WidgetGroup {
     
     var widgets: [T]
     
-    public func place<U: Widget>(@UIFunction block: () -> [U]) -> RecursiveGroup<SingleLayerDisplay<T>, U> {
+    public func place<U: Widget>(@UIFunction block: () -> [U]) -> RecursiveGroup<SingleWidgetGroup<T>, U> {
         return .init(group: .init(widgets: self.widgets), widgets: block())
+    }
+    
+    public func widgetNodes() -> [SKNode] {
+        self.widgets.map { widget in
+            widget.node()
+        }
     }
     
     public func node() -> SKNode {
@@ -69,7 +84,7 @@ public struct Display: Widget {
     
     public init() {}
     
-    public func place<T: Widget>(@UIFunction block: () -> [T]) -> SingleLayerDisplay<T> {
+    public func place<T: Widget>(@UIFunction block: () -> [T]) -> SingleWidgetGroup<T> {
         .init(widgets: block())
     }
     
