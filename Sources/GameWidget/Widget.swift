@@ -9,7 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-
 public protocol Widget {
     func node() -> SKNode
 }
@@ -20,29 +19,73 @@ public protocol Widget {
     }
 }
 
-public struct Display {
+public protocol WidgetGroup: Widget {
+    func widgetNodes() -> [SKNode]
+}
+
+public struct RecursiveGroup<T: WidgetGroup, U: Widget>: WidgetGroup {
     
-    public init() {}
+    var group: T
+    var widgets: [U]
     
+    public func place<V: Widget>(@UIFunction block: () -> [V]) -> RecursiveGroup<RecursiveGroup<T, U>, V> {
+        return .init(group: .init(group: self.group, widgets: self.widgets), widgets: block())
+    }
     
-    func node() -> SKNode {
+    public func widgetNodes() -> [SKNode] {
+        self.widgets.map { widget in
+            widget.node()
+        } + group.widgetNodes()
+    }
+    
+    public func node() -> SKNode {
         let result = SKNode()
-        for item in self.items {
-            result.addChild(item.node())
+        for node in self.widgetNodes() {
+            result.addChild(node)
         }
         return result
     }
     
+}
 
-    var items = [Widget]()
+public struct SingleWidgetGroup<T: Widget>: WidgetGroup {
     
-    public func place<Part: Widget>(@UIFunction item: () -> [Part]) -> Self {
-
-        var result = self
-        for i in item() {
-            result.items.append(i)
+    var widgets: [T]
+    
+    public func place<U: Widget>(@UIFunction block: () -> [U]) -> RecursiveGroup<SingleWidgetGroup<T>, U> {
+        return .init(group: .init(widgets: self.widgets), widgets: block())
+    }
+    
+    public func widgetNodes() -> [SKNode] {
+        self.widgets.map { widget in
+            widget.node()
+        }
+    }
+    
+    public func node() -> SKNode {
+        let result = SKNode()
+        for i in self.widgets {
+            result.addChild(i.node())
         }
         return result
+    }
+    
+}
+
+public struct Display: Widget {
+    
+    public func node() -> SKNode {
+#if DEBUG
+        fatalError("[GameWidget error] Display not contain widget.")
+#else
+        fatalError()
+#endif
+    }
+    
+    public init() {}
+    
+    public func place<T: Widget>(@UIFunction block: () -> [T]) -> SingleWidgetGroup<T> {
+        .init(widgets: block())
     }
     
 }
