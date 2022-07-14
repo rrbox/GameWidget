@@ -60,11 +60,11 @@ public struct SingleLayerDisplay<T: Widget>: Widget {
 public struct Display: Widget {
     
     public func node() -> SKNode {
-        #if DEBUG
+#if DEBUG
         fatalError("[GameWidget error] Display not contain widget.")
-        #else
+#else
         fatalError()
-        #endif
+#endif
     }
     
     public init() {}
