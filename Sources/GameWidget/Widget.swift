@@ -20,29 +20,57 @@ public protocol Widget {
     }
 }
 
-public struct Display {
+public struct RecursiveGroup<T: Widget, U: Widget>: Widget {
     
-    public init() {}
+    var group: T
+    var widgets: [U]
     
+    public func place<V: Widget>(@UIFunction block: () -> [V]) -> RecursiveGroup<RecursiveGroup<T, U>, V> {
+        return .init(group: .init(group: self.group, widgets: self.widgets), widgets: block())
+    }
     
-    func node() -> SKNode {
+    public func node() -> SKNode {
         let result = SKNode()
-        for item in self.items {
-            result.addChild(item.node())
+        result.addChild(self.group.node())
+        for i in self.widgets {
+            result.addChild(i.node())
         }
         return result
     }
     
+}
 
-    var items = [Widget]()
+public struct SingleLayerDisplay<T: Widget>: Widget {
     
-    public func place<Part: Widget>(@UIFunction item: () -> [Part]) -> Self {
-
-        var result = self
-        for i in item() {
-            result.items.append(i)
+    var widgets: [T]
+    
+    public func place<U: Widget>(@UIFunction block: () -> [U]) -> RecursiveGroup<SingleLayerDisplay<T>, U> {
+        return .init(group: .init(widgets: self.widgets), widgets: block())
+    }
+    
+    public func node() -> SKNode {
+        let result = SKNode()
+        for i in self.widgets {
+            result.addChild(i.node())
         }
         return result
+    }
+    
+}
+public struct Display: Widget {
+    
+    public func node() -> SKNode {
+        #if DEBUG
+        fatalError("[GameWidget error] Display not contain widget.")
+        #else
+        fatalError()
+        #endif
+    }
+    
+    public init() {}
+    
+    public func place<T: Widget>(@UIFunction block: () -> [T]) -> SingleLayerDisplay<T> {
+        .init(widgets: block())
     }
     
 }
