@@ -9,9 +9,9 @@ import GameplayKit
 
 final private class UserInterfaceBaseNode: GKSKNodeComponent {}
 
-final public class UserInterfaceDisplay: GKSKNodeComponent {
+final public class UserInterfaceDisplay<T: Widget>: GKSKNodeComponent {
     
-    init(_ display: Display) {
+    init(_ display: T) {
         super.init(node: display.node())
     }
     
@@ -29,7 +29,7 @@ final public class UserInterfaceDisplay: GKSKNodeComponent {
     
 }
 
-public func makeUserInterfaceEntity(camera: SKNode, display: Display) -> GKEntity {
+public func makeUserInterfaceEntity<T: Widget>(camera: SKNode, display: T) -> GKEntity {
     let result = GKEntity()
     result.addComponent(UserInterfaceBaseNode(node: camera))
     result.addComponent(UserInterfaceDisplay(display))
