@@ -7,3 +7,8 @@ User interface widgets for SpriteKit.
  ```swift
  
  ```
+
+## Supported widget
+
+- Button
+- Bar chart(beta)
