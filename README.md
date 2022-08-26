@@ -13,6 +13,6 @@ User interface widgets for SpriteKit.
 - Button(beta)
 - Bar chart(beta)
 
-## Planning to make
+## Planning to make follows
 
 - Controller stick
