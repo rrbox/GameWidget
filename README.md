@@ -5,10 +5,17 @@ User interface widgets for SpriteKit.
 ## DEMO
 
 ```swift
-Display()
-    .place {
-        Button(.init("Select"))
-    }
+import GameWidget
+import SpriteKit
+
+let node = Display()
+        .place {
+            Button(.init("Select"))
+                .position(CGPoint(x: 0, y: 32))
+            Button(.init("Cancel"))
+                .position(CGPoint(x: 0, y: -32))
+        }
+        .node()
 
 ```
 
