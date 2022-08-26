@@ -8,7 +8,7 @@ User interface widgets for SpriteKit.
  
  ```
 
-## Supported widget
+## Supported widgets
 
 - Button
 - Bar chart(beta)
