@@ -4,9 +4,13 @@ User interface widgets for SpriteKit.
 
 ## DEMO
 
- ```swift
- 
- ```
+```swift
+Display()
+    .place {
+        Button(.init("Select"))
+    }
+
+```
 
 ## Supported widgets
 
