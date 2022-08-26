@@ -10,7 +10,7 @@ User interface widgets for SpriteKit.
 
 ## Supported widgets
 
-- Button
+- Button(beta)
 - Bar chart(beta)
 
 ## Planning to make
