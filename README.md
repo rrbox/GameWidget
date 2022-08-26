@@ -1,3 +1,9 @@
 # GameWidget
 
-A description of this package.
+User interface widgets for SpriteKit.
+
+## DEMO
+
+ ```swift
+ 
+ ```
