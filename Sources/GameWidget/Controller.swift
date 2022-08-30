@@ -8,7 +8,7 @@
 import GameplayKit
 
 /// クリックするとコントローラーが表示される領域
-class ControllerArea: SKSpriteNode {
+class ControllerAreaNode: SKSpriteNode {
     override var isUserInteractionEnabled: Bool {
         get { true }
         set {}
@@ -26,4 +26,11 @@ class ControllerArea: SKSpriteNode {
     
 }
 
-
+struct ControllerArea: Widget {
+    var size: CGSize
+    func node() -> SKNode {
+        let result = ControllerAreaNode(color: .black, size: self.size)
+        result.alpha = 0.01
+        return result
+    }
+}
