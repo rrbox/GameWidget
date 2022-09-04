@@ -1,5 +1,8 @@
 # GameWidget
 
+[![GitHub issues](https://img.shields.io/github/issues/rrbox/GameWidget)](https://github.com/rrbox/GameWidget/issues)
+[![GitHub license](https://img.shields.io/github/license/rrbox/GameWidget)](https://github.com/rrbox/GameWidget/blob/main/LICENCE)
+
 User interface widgets for SpriteKit.
 
 ## DEMO
