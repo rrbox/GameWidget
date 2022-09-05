@@ -2,7 +2,7 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/rrbox/GameWidget)](https://github.com/rrbox/GameWidget/issues)
 [![GitHub license](https://img.shields.io/github/license/rrbox/GameWidget)](https://github.com/rrbox/GameWidget/blob/main/LICENCE)
-[![Swift](https://github.com/rrbox/GameWidget/actions/workflows/swift.yml/badge.svg)](https://github.com/rrbox/GameWidget/actions/workflows/swift.yml)
+[![Swift](https://github.com/rrbox/GameWidget/actions/workflows/swift.yml/badge.svg?branch=develop)](https://github.com/rrbox/GameWidget/actions/workflows/swift.yml)
 
 User interface widgets for SpriteKit.
 
