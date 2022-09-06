@@ -23,7 +23,7 @@ class ControllerCenter: SKShapeNode {
         let mouse = event.location(in: self)
         let d = distanceOf(mouse)
         let restriction = CGPoint(x: (mouse.x/d)*32, y: (mouse.y/d)*32)
-        if abs(mouse.x) < abs(restriction.x) && abs(mouse.y) < abs(restriction.y) {
+        if d < 32 {
             self.directionNode?.position = mouse
         } else {
             self.directionNode?.position = restriction
