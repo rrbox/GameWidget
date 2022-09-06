@@ -11,10 +11,7 @@ class ControllerCenter: SKShapeNode {
 
     weak var directionNode: SKShapeNode?
     
-    func vector(_ p0: CGPoint, _ p1: CGPoint) -> CGPoint {
-        CGPoint(x: p0.x-p1.x, y: p0.y-p1.y)
-    }
-    
+    // 原点からの距離を計算
     func distanceOf(_ v: CGPoint) -> CGFloat {
         sqrt(pow(v.x, 2)+pow(v.y, 2))
     }
