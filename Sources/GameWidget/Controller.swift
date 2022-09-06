@@ -7,30 +7,79 @@
 
 import GameplayKit
 
+class ControllerCenter: SKShapeNode {
+
+    weak var directionNode: SKShapeNode?
+    
+    func vector(_ p0: CGPoint, _ p1: CGPoint) -> CGPoint {
+        CGPoint(x: p0.x-p1.x, y: p0.y-p1.y)
+    }
+    
+    func distanceOf(_ v: CGPoint) -> CGFloat {
+        sqrt(pow(v.x, 2)+pow(v.y, 2))
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        let mouse = event.location(in: self)
+        let d = distanceOf(mouse)
+        let restriction = CGPoint(x: (mouse.x/d)*32, y: (mouse.y/d)*32)
+        if abs(mouse.x) < abs(restriction.x) && abs(mouse.y) < abs(restriction.y) {
+            self.directionNode?.position = mouse
+        } else {
+            self.directionNode?.position = restriction
+        }
+    }
+}
+
 /// クリックするとコントローラーが表示される領域
 class ControllerAreaNode: SKSpriteNode {
+    let centerNode = ControllerCenter(circleOfRadius: 32)
+    let directionNode = SKShapeNode(circleOfRadius: 10)
+    
     override var isUserInteractionEnabled: Bool {
         get { true }
         set {}
     }
     
     override func mouseDown(with event: NSEvent) {
-        
+        self.centerNode.position = event.location(in: self)
+        self.directionNode.position = .zero
+        self.addChild(self.centerNode)
     }
+    
     override func mouseDragged(with event: NSEvent) {
-        
+        self.centerNode.mouseDragged(with: event)
     }
+    
     override func mouseUp(with event: NSEvent) {
-        
+        self.centerNode.removeFromParent()
     }
     
 }
 
-struct ControllerArea: Widget {
-    var size: CGSize
-    func node() -> SKNode {
+public struct ControllerArea: Widget, MoveableItem {
+    var size: CGSize = CGSize(width: 100, height: 100)
+    public var position: CGPoint = .zero
+    
+    public init() {}
+    
+    public func node() -> SKNode {
         let result = ControllerAreaNode(color: .black, size: self.size)
-        result.alpha = 0.01
+        result.color = SKColor(red: 1, green: 1, blue: 1, alpha: 0.01)
+        result.addChild(SKSpriteNode(color: .blue, size: CGSize(width: 100, height: 100)))
+        result.centerNode.directionNode = result.directionNode
+        result.centerNode.addChild(result.directionNode)
+        result.position = self.position
         return result
     }
+    
+}
+
+public extension ControllerArea {
+    func size(_ value: CGSize) -> Self {
+        var result = self
+        result.size = value
+        return result
+    }
+    
 }
