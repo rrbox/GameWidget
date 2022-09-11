@@ -42,6 +42,13 @@ class ControllerAreaNode: SKSpriteNode {
     let origin = SKShapeNode(circleOfRadius: 32)
     let cursor = SKShapeNode(circleOfRadius: 10)
     
+    var id: ControllerData.Name!
+    
+    // 原点からの距離を計算
+    func distanceOf(_ v: CGPoint) -> CGFloat {
+        sqrt(pow(v.x, 2)+pow(v.y, 2))
+    }
+    
     override var isUserInteractionEnabled: Bool {
         get { true }
         set {}
@@ -54,11 +61,21 @@ class ControllerAreaNode: SKSpriteNode {
     }
     
     override func mouseDragged(with event: NSEvent) {
-        self.origin.mouseDragged(with: event)
+        let mouse = event.location(in: self.origin)
+        let d = distanceOf(mouse)
+        let restriction = CGPoint(x: (mouse.x/d)*32, y: (mouse.y/d)*32)
+        if d < 32 {
+            self.cursor.position = mouse
+        } else {
+            self.cursor.position = restriction
+        }
+        
+        ControllerData.inputs.value[self.id] = ControllerData.Input(weight: d, direction: .up)
     }
     
     override func mouseUp(with event: NSEvent) {
         self.origin.removeFromParent()
+        ControllerData.inputs.value[self.id]?.direction = []
     }
     
 }
@@ -67,10 +84,16 @@ public struct ControllerArea: Widget, MoveableItem {
     var size: CGSize = CGSize(width: 100, height: 100)
     public var position: CGPoint = .zero
     
-    public init() {}
+    var id: ControllerData.Name
+    
+    public init(_ id: ControllerData.Name) {
+        self.id = id
+    }
     
     public func node() -> SKNode {
         let result = ControllerAreaNode(color: .black, size: self.size)
+        result.id = self.id
+        ControllerData.inputs.value[self.id] = ControllerData.Input(weight: 0, direction: [])
         result.color = SKColor(red: 1, green: 1, blue: 1, alpha: 0.01)
         result.origin.addChild(result.cursor)
         result.position = self.position
