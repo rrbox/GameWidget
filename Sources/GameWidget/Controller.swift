@@ -6,9 +6,30 @@
 //
 
 import GameplayKit
+import Combine
+
+public enum ControllerData {
+    public struct Direction: OptionSet {
+        public var rawValue: UInt8
+        public init(rawValue: UInt8) {
+            self.rawValue = rawValue
+        }
+        
+        public static let up = Direction(rawValue: 0b0001)
+        public static let right = Direction(rawValue: 0b0010)
+        public static let down = Direction(rawValue: 0b0100)
+        public static let left = Direction(rawValue: 0b1000)
+    }
+    
+    public struct Input {
+        var weight: CGFloat
+        var direction: Direction
+    }
+    
+}
 
 class ControllerOrigin: SKShapeNode {
-
+    
     weak var cursor: SKShapeNode?
     
     // 原点からの距離を計算
