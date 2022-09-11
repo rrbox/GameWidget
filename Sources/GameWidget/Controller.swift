@@ -40,7 +40,7 @@ public enum ControllerData {
 /// クリックするとコントローラーが表示される領域
 class ControllerAreaNode: SKSpriteNode {
     let origin = SKShapeNode(circleOfRadius: 32)
-    let cursor = SKShapeNode(circleOfRadius: 10)
+    let cursor = SKShapeNode(circleOfRadius: 20)
     
     var id: ControllerData.Name!
     
