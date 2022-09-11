@@ -7,9 +7,9 @@
 
 import GameplayKit
 
-class ControllerCenter: SKShapeNode {
+class ControllerOrigin: SKShapeNode {
 
-    weak var directionNode: SKShapeNode?
+    weak var cursor: SKShapeNode?
     
     // 原点からの距離を計算
     func distanceOf(_ v: CGPoint) -> CGFloat {
@@ -21,17 +21,17 @@ class ControllerCenter: SKShapeNode {
         let d = distanceOf(mouse)
         let restriction = CGPoint(x: (mouse.x/d)*32, y: (mouse.y/d)*32)
         if d < 32 {
-            self.directionNode?.position = mouse
+            self.cursor?.position = mouse
         } else {
-            self.directionNode?.position = restriction
+            self.cursor?.position = restriction
         }
     }
 }
 
 /// クリックするとコントローラーが表示される領域
 class ControllerAreaNode: SKSpriteNode {
-    let centerNode = ControllerCenter(circleOfRadius: 32)
-    let directionNode = SKShapeNode(circleOfRadius: 10)
+    let origin = ControllerOrigin(circleOfRadius: 32)
+    let cursor = SKShapeNode(circleOfRadius: 10)
     
     override var isUserInteractionEnabled: Bool {
         get { true }
@@ -39,17 +39,17 @@ class ControllerAreaNode: SKSpriteNode {
     }
     
     override func mouseDown(with event: NSEvent) {
-        self.centerNode.position = event.location(in: self)
-        self.directionNode.position = .zero
-        self.addChild(self.centerNode)
+        self.origin.position = event.location(in: self)
+        self.cursor.position = .zero
+        self.addChild(self.origin)
     }
     
     override func mouseDragged(with event: NSEvent) {
-        self.centerNode.mouseDragged(with: event)
+        self.origin.mouseDragged(with: event)
     }
     
     override func mouseUp(with event: NSEvent) {
-        self.centerNode.removeFromParent()
+        self.origin.removeFromParent()
     }
     
 }
@@ -63,8 +63,8 @@ public struct ControllerArea: Widget, MoveableItem {
     public func node() -> SKNode {
         let result = ControllerAreaNode(color: .black, size: self.size)
         result.color = SKColor(red: 1, green: 1, blue: 1, alpha: 0.01)
-        result.centerNode.directionNode = result.directionNode
-        result.centerNode.addChild(result.directionNode)
+        result.origin.cursor = result.cursor
+        result.origin.addChild(result.cursor)
         result.position = self.position
         return result
     }
