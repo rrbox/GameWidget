@@ -22,36 +22,24 @@ public enum ControllerData {
     }
     
     public struct Input {
-        var weight: CGFloat
-        var direction: Direction
+        public var weight: CGFloat
+        public var direction: Direction
     }
     
-}
-
-class ControllerOrigin: SKShapeNode {
-    
-    weak var cursor: SKShapeNode?
-    
-    // 原点からの距離を計算
-    func distanceOf(_ v: CGPoint) -> CGFloat {
-        sqrt(pow(v.x, 2)+pow(v.y, 2))
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        let mouse = event.location(in: self)
-        let d = distanceOf(mouse)
-        let restriction = CGPoint(x: (mouse.x/d)*32, y: (mouse.y/d)*32)
-        if d < 32 {
-            self.cursor?.position = mouse
-        } else {
-            self.cursor?.position = restriction
+    public struct Name: Hashable {
+        let name: String
+        public init(_ name: String) {
+            self.name = name
         }
     }
+    
+    public static var inputs = CurrentValueSubject<[Name: Input], Never>([Name: Input]())
+    
 }
 
 /// クリックするとコントローラーが表示される領域
 class ControllerAreaNode: SKSpriteNode {
-    let origin = ControllerOrigin(circleOfRadius: 32)
+    let origin = SKShapeNode(circleOfRadius: 32)
     let cursor = SKShapeNode(circleOfRadius: 10)
     
     override var isUserInteractionEnabled: Bool {
@@ -84,7 +72,6 @@ public struct ControllerArea: Widget, MoveableItem {
     public func node() -> SKNode {
         let result = ControllerAreaNode(color: .black, size: self.size)
         result.color = SKColor(red: 1, green: 1, blue: 1, alpha: 0.01)
-        result.origin.cursor = result.cursor
         result.origin.addChild(result.cursor)
         result.position = self.position
         return result
