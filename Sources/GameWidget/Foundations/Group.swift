@@ -159,6 +159,12 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
     
     public func node() -> SKNode {
         let result = SKNode()
+        
+        result.position = self.position
+        result.zRotation = self.zRotation
+        result.xScale = self.xScale
+        result.yScale = self.yScale
+        
         for i in self.content.widgetNodes() {
             result.addChild(i)
         }
