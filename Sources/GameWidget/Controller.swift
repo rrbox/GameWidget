@@ -75,7 +75,7 @@ class ControllerAreaNode: SKSpriteNode {
     
     override func mouseUp(with event: NSEvent) {
         self.origin.removeFromParent()
-        ControllerData.inputs.value[self.id]?.direction = []
+        ControllerData.inputs.value[self.id]? = ControllerData.Input(weight: 0, direction: [])
     }
     
 }
