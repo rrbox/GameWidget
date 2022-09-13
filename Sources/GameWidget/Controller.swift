@@ -70,7 +70,27 @@ class ControllerAreaNode: SKSpriteNode {
             self.cursor.position = restriction
         }
         
-        ControllerData.inputs.value[self.id] = ControllerData.Input(weight: d, direction: .up)
+        var resultDirection: ControllerData.Direction = []
+        
+        if mouse.y > abs(2*mouse.x) {
+            resultDirection = .up
+        } else if mouse.x > abs(2*mouse.y) {
+            resultDirection = .right
+        } else if mouse.y < -abs(2*mouse.x) {
+            resultDirection = .down
+        } else if mouse.x < -abs(2*mouse.y) {
+            resultDirection = .left
+        } else if mouse.x > 0 && mouse.y > 0 {
+            resultDirection = [.up, .right]
+        } else if mouse.x > 0 && mouse.y < 0 {
+            resultDirection = [.right, .down]
+        } else if mouse.x < 0 && mouse.y < 0 {
+            resultDirection = [.down, .left]
+        } else if mouse.x < 0 && mouse.y > 0 {
+            resultDirection = [.left, .up]
+        }
+        
+        ControllerData.inputs.value[self.id] = ControllerData.Input(weight: d, direction: resultDirection)
     }
     
     override func mouseUp(with event: NSEvent) {
