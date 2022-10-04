@@ -48,6 +48,8 @@ Up to 10 widgets can be placed on a single `Display.place`.
 
 ### Node
 
+Node is modifiable with the values used for SKNode parameters.
+
 ```swift
 let node = Node {
 		Button(.init("Select"))
@@ -55,6 +57,8 @@ let node = Node {
 		Button(.init("Cancel"))
 			.position(CGPoint(x: 0, y: -32))
 	}
+	.posisition(CGPoint(x: 0, y: 32))
+	.zRotation(0.5)
 	.node()
 
 ```
