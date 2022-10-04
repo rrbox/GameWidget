@@ -32,4 +32,4 @@ let node = Button(.init("Select"))
 
 ## Planning to make follows
 
-- Controller stick
+- Controller (joy stick)
