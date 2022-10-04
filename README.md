@@ -22,6 +22,12 @@ let node = Display()
 ## Supported widgets
 
 - Button(beta)
+
+```swift
+let node = Button(.init("Select"))
+        .node()
+```
+
 - Bar chart(beta)
 
 ## Planning to make follows
