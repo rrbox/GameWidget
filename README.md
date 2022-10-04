@@ -9,13 +9,13 @@ import GameWidget
 import SpriteKit
 
 let node = Display()
-        .place {
-            Button(.init("Select"))
-                .position(CGPoint(x: 0, y: 32))
-            Button(.init("Cancel"))
-                .position(CGPoint(x: 0, y: -32))
-        }
-        .node()
+	.place {
+		Button(.init("Select"))
+			.position(CGPoint(x: 0, y: 32))
+		Button(.init("Cancel"))
+			.position(CGPoint(x: 0, y: -32))
+	}
+	.node()
 
 ```
 
@@ -25,16 +25,33 @@ let node = Display()
 
 ```swift
 let node = Button(.init("Button"))
-        .node()
+	.node()
 ```
 
 - Bar chart(beta)
 
 ```swift
 let node = HorizontalSingleBarChart(name: .init("Bar"))
-        .node()
+	.node()
 ```
 
-## Planning to make follows
+### Planning to make follows
 
 - Controller (joy stick)
+
+## Combine widgets
+
+- Display
+
+
+```swift
+let node = Display()
+	.place {
+		Button(.init("Select"))
+			.position(CGPoint(x: 0, y: 32))
+		Button(.init("Cancel"))
+			.position(CGPoint(x: 0, y: -32))
+	}
+	.node()
+
+```
