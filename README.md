@@ -19,30 +19,11 @@ let node = Display()
 
 ```
 
-## Supported widgets
+## Layout widgets
 
-- Button(beta)
+### Display
 
-```swift
-let node = Button(.init("Button"))
-	.node()
-```
-
-- Bar chart(beta)
-
-```swift
-let node = HorizontalSingleBarChart(name: .init("Bar"))
-	.node()
-```
-
-### Planning to make follows
-
-- Controller (joy stick)
-
-## Combine widgets
-
-- Display
-
+Display multiple widgets in one SKNode.
 
 ```swift
 let node = Display()
@@ -55,3 +36,29 @@ let node = Display()
 	.node()
 
 ```
+
+Up to 10 widgets can be placed on a single `Display`.
+
+### Node
+
+Up to 10 widgets can be placed on a single `Node`.
+
+## Supported widgets
+
+### Button(beta)
+
+```swift
+let node = Button(.init("Button"))
+	.node()
+```
+
+### Bar chart(beta)
+
+```swift
+let node = HorizontalSingleBarChart(name: .init("Bar"))
+	.node()
+```
+
+## Planning to make follows
+
+### Controller (joy stick)
