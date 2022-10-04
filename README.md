@@ -24,11 +24,16 @@ let node = Display()
 - Button(beta)
 
 ```swift
-let node = Button(.init("Select"))
+let node = Button(.init("Button"))
         .node()
 ```
 
 - Bar chart(beta)
+
+```swift
+let node = HorizontalSingleBarChart(name: .init("Bar"))
+        .node()
+```
 
 ## Planning to make follows
 
