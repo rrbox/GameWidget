@@ -48,7 +48,7 @@ Up to 10 widgets can be placed on a single `Display.place`.
 
 ### Node
 
-Node is modifiable with the values used for SKNode parameters.
+`Node` widget is modifiable with the values used for SKNode parameters.
 
 ```swift
 let node = Node {
@@ -64,6 +64,56 @@ let node = Node {
 ```
 
 Up to 10 widgets can be placed on a single `Node`.
+
+### Extension
+
+Use `Extension` to place more than 10 widgets.
+
+```swift
+// case Display
+let node = Display()
+	.place {
+		Button(.init("Select"))
+			.position(CGPoint(x: 0, y: 32))
+		Button(.init("Cancel"))
+			.position(CGPoint(x: 0, y: -32))
+		Button(.init("Select_B"))
+			.position(CGPoint(x: 0, y: 64))
+		Button(.init("Cancel_B"))
+			.position(CGPoint(x: 0, y: -64))
+		HorizontalSingleBarChart(name: .init("Bar"))
+		//...
+		Extension {
+			Button(.init("Select"))
+				.position(CGPoint(x: 0, y: 32))
+			Button(.init("Cancel"))
+				.position(CGPoint(x: 0, y: -32))
+			Button(.init("Select_B"))
+				.position(CGPoint(x: 0, y: 64))
+			Button(.init("Cancel_B"))
+				.position(CGPoint(x: 0, y: -64))
+			HorizontalSingleBarChart(name: .init("Bar"))
+		}
+	}
+	.node()
+```
+
+Extension is a special widget that cannot generate SKNode.
+
+```swift
+let node = Extension {
+		Button(.init("Select"))
+			.position(CGPoint(x: 0, y: 32))
+		Button(.init("Cancel"))
+			.position(CGPoint(x: 0, y: -32))
+		Button(.init("Select_B"))
+			.position(CGPoint(x: 0, y: 64))
+		Button(.init("Cancel_B"))
+			.position(CGPoint(x: 0, y: -64))
+		HorizontalSingleBarChart(name: .init("Bar"))
+	}
+	.node() // fatalError
+```
 
 ## Supported widgets
 
