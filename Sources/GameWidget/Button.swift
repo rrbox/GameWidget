@@ -204,7 +204,7 @@ public struct Button {
     private let name: Role
     private var color = SKColor.white
     private var position = CGPoint.zero
-    private var size = CGSize(width: 32, height: 32)
+//    private var size = CGSize(width: 32, height: 32)
     private var text: String?
     private var actionType = ActionType.scale
     
@@ -218,11 +218,11 @@ public struct Button {
         return result
     }
     
-    @discardableResult public func size(_ value: CGSize) -> Self {
-        var result = self
-        result.size = value
-        return result
-    }
+//    @discardableResult public func size(_ value: CGSize) -> Self {
+//        var result = self
+//        result.size = value
+//        return result
+//    }
     
     @discardableResult public func color(_ value: SKColor) -> Self {
         var result = self
@@ -249,18 +249,19 @@ extension Button: Widget {
     public func node() -> SKNode {
         let result = SKNode()
         
-        let sensor = ButtonSensor(color: self.color, size: self.size)
-        sensor.alpha = 0.01
-        sensor.roleName = self.name
-        sensor.setAction(type: self.actionType)
-        result.addChild(sensor)
-        
         let label = SKLabelNode(text: self.text ?? "\(self.name)")
         label.verticalAlignmentMode = .center
         label.zPosition = -1
+        
+        let sensor = ButtonSensor(color: self.color, size: label.frame.size)
+        sensor.size.width += 10
+        sensor.alpha = 0.01
+        sensor.roleName = self.name
+        sensor.setAction(type: self.actionType)
+        
+        result.addChild(sensor)
         result.addChild(label)
         result.position = self.position
-        
         return result
     }
     
