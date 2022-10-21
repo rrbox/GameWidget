@@ -136,6 +136,8 @@ struct Single<T: Widget>: WidgetList {
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
 public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
+    public typealias Context = Never
+    
     public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
@@ -172,6 +174,7 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
 public struct Extension<Content: WidgetList>: Widget, WidgetList {
+    public typealias Context = Never
     var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {

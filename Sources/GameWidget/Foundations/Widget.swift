@@ -12,6 +12,8 @@ import GameplayKit
 public protocol Widget {
     func node() -> SKNode
     func addTo(parent list: inout [SKNode])
+    
+    associatedtype Context
 }
 
 public extension Widget {

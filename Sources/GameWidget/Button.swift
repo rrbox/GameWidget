@@ -188,6 +188,13 @@ fileprivate final class ButtonSensor: SKSpriteNode {
     
 }
 
+public struct ButtonContext {
+    var color = SKColor.white
+    var position = CGPoint.zero
+    var text: String?
+    var actionType = ActionType.scale
+}
+
 public struct Button {
     
     public struct Role: Equatable {
@@ -198,10 +205,7 @@ public struct Button {
     }
     
     private let name: Role
-    private var color = SKColor.white
-    private var position = CGPoint.zero
-    private var text: String?
-    private var actionType = ActionType.scale
+    var context = ButtonContext()
     
     public init(_ name: Role) {
         self.name = name
@@ -209,48 +213,49 @@ public struct Button {
     
     @discardableResult public func position(_ value: CGPoint) -> Self {
         var result = self
-        result.position = value
+        result.context.position = value
         return result
     }
     
     @discardableResult public func color(_ value: SKColor) -> Self {
         var result = self
-        result.color = value
+        result.context.color = value
         return result
     }
     
     @discardableResult public func text(_ value: String) -> Self {
         var result = self
-        result.text = value
+        result.context.text = value
         return result
     }
     
     @discardableResult public func actionType(_ value: ActionType) -> Self {
         var result = self
-        result.actionType = value
+        result.context.actionType = value
         return result
     }
     
 }
 
 extension Button: Widget {
+    public typealias Context = ButtonContext
     
     public func node() -> SKNode {
         let result = SKNode()
         
-        let label = SKLabelNode(text: self.text ?? "\(self.name)")
+        let label = SKLabelNode(text: self.context.text ?? "\(self.name)")
         label.verticalAlignmentMode = .center
         label.zPosition = -1
         
-        let sensor = ButtonSensor(color: self.color, size: label.frame.size)
+        let sensor = ButtonSensor(color: self.context.color, size: label.frame.size)
         sensor.size.width += 10
         sensor.alpha = 0.01
         sensor.roleName = self.name
-        sensor.setAction(type: self.actionType)
+        sensor.setAction(type: self.context.actionType)
         
         result.addChild(sensor)
         result.addChild(label)
-        result.position = self.position
+        result.position = self.context.position
         return result
     }
     

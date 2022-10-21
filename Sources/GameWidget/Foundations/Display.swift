@@ -9,6 +9,8 @@ import SpriteKit
 
 /// SingleWidgetDisplay の place により生成され, 二つの WidgetList(一方は Display)を保持します.
 public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList {
+    public typealias Context = Never
+    
     var first: T
     var second: U
     
@@ -35,6 +37,7 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
 /// 一つの widget から RecursiveDisplay を生成するためのラッパー.
 /// Display の place により生成され, 一つの WidgetList を保持します.
 public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
+    public typealias Context = Never
     var widgetList: T
     
     public func place<U: WidgetList>(@GroupBuilder block: () -> U) -> RecursiveDisplay<Self, U> {
@@ -59,6 +62,8 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
 /// - note: 一回の place メソッドで配置可能な widget の数は 10 個までです.
 public struct Display: Widget {
     public init() {}
+    
+    public typealias Context = Never
     
     public func place<T: WidgetList>(@GroupBuilder block: () -> T) -> SingleWidgetDisplay<T> {
         SingleWidgetDisplay(widgetList: block())

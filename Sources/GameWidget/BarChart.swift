@@ -19,6 +19,15 @@ public enum HorizontalBarChartAlignmentMode {
     }
 }
 
+public struct HorizontalSingleBarChartContext {
+    var position = CGPoint.zero
+    var width = CGFloat(10)
+    var length = CGFloat(100)
+    var alignment = HorizontalBarChartAlignmentMode.right
+    var color = SKColor.systemGreen
+    var backgroundColor = SKColor.gray
+}
+
 public struct HorizontalSingleBarChart {
     public struct ID: Equatable {
         let id: String
@@ -32,58 +41,59 @@ public struct HorizontalSingleBarChart {
     }
     
     var name: ID
-    var position = CGPoint.zero
-    var width = CGFloat(10)
-    var length = CGFloat(100)
-    var alignment = HorizontalBarChartAlignmentMode.right
-    var color = SKColor.systemGreen
-    var backgroundColor = SKColor.gray
+    var context = HorizontalSingleBarChartContext()
     
     @discardableResult public func width(_ value: CGFloat) -> Self {
         var result = self
-        result.width = value
+        result.context.width = value
         return result
     }
     
     @discardableResult public func length(_ value: CGFloat) -> Self {
         var result = self
-        result.length = value
+        result.context.length = value
         return result
     }
     
     @discardableResult public func arignment(_ value: HorizontalBarChartAlignmentMode) -> Self {
         var result = self
-        result.alignment = value
+        result.context.alignment = value
         return result
     }
     
     @discardableResult public func position(_ value: CGPoint) -> Self {
         var result = self
-        result.position = value
+        result.context.position = value
         return result
     }
     
     @discardableResult public func color(_ value: SKColor) -> Self {
         var result = self
-        result.color = value
+        result.context.color = value
         return result
     }
     
     @discardableResult public func backgroundColor(_ value: SKColor) -> Self {
         var result = self
-        result.backgroundColor = value
+        result.context.backgroundColor = value
         return result
     }
     
 }
 
 extension HorizontalSingleBarChart: Widget {
+    public typealias Context = HorizontalSingleBarChartContext
+    
     public func node() -> SKNode {
-        let result = SKSpriteNode(color: self.backgroundColor, size: CGSize(width: self.length, height: self.width))
-        let bar = SKSpriteNode(color: self.color, size: CGSize(width: self.length, height: self.width))
-        result.anchorPoint = self.alignment.anchorPoint()
-        bar.anchorPoint = self.alignment.anchorPoint()
-        result.position = self.position
+        let result = SKSpriteNode(
+            color: self.context.backgroundColor,
+            size: CGSize(width: self.context.length, height: self.context.width))
+        let bar = SKSpriteNode(
+            color: self.context.color,
+            size: CGSize(width: self.context.length, height: self.context.width))
+        result.anchorPoint = self.context.alignment.anchorPoint()
+        bar.anchorPoint = self.context.alignment.anchorPoint()
+        result.position = self.context.position
         result.addChild(bar)
         return result
     }
