@@ -37,7 +37,6 @@ public protocol RotatableItem: Widget {
 }
 
 public extension RotatableItem {
-    
     func zRotation(_ value: CGFloat) -> Self {
         var result = self
         result.zRotation = value
@@ -52,7 +51,6 @@ public protocol ScalableItem: Widget {
 }
 
 public extension ScalableItem {
-    
     func scale(_ value: CGFloat) -> Self {
         var result = self
         result.xScale = value
