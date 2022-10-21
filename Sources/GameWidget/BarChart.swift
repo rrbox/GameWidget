@@ -20,7 +20,6 @@ public enum HorizontalBarChartAlignmentMode {
 }
 
 public struct HorizontalSingleBarChart {
-    
     public struct ID: Equatable {
         let id: String
         public init(_ id: String) {
@@ -79,7 +78,6 @@ public struct HorizontalSingleBarChart {
 }
 
 extension HorizontalSingleBarChart: Widget {
-    
     public func node() -> SKNode {
         let result = SKSpriteNode(color: self.backgroundColor, size: CGSize(width: self.length, height: self.width))
         let bar = SKSpriteNode(color: self.color, size: CGSize(width: self.length, height: self.width))

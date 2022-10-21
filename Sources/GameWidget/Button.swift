@@ -17,7 +17,6 @@ import GameplayKit
 }
 
 final public class ButtonNotificationCenter: NSObject {
-    
     let center: NotificationCenter
     private static weak var activated: ButtonNotificationCenter?
     
@@ -48,7 +47,6 @@ final public class ButtonNotificationCenter: NSObject {
 }
 
 extension Notification.Name {
-    
     static let buttonTouchDown = Notification.Name("ButtonNode.touchDown")
     
     static let buttonTouchUp = Notification.Name("ButtonNode.touchUp")
@@ -56,7 +54,6 @@ extension Notification.Name {
 }
 
 public extension ButtonResopnder {
-    
     func getButtonEvent(_ notification: Notification) -> Button.Role {
         notification.userInfo!["buttonName"] as! Button.Role
     }
@@ -78,7 +75,6 @@ public enum ActionType {
 }
 
 fileprivate final class ButtonSensor: SKSpriteNode {
-    
     override var isUserInteractionEnabled: Bool {
         get { true }
         set {}
@@ -204,7 +200,6 @@ public struct Button {
     private let name: Role
     private var color = SKColor.white
     private var position = CGPoint.zero
-//    private var size = CGSize(width: 32, height: 32)
     private var text: String?
     private var actionType = ActionType.scale
     
@@ -217,12 +212,6 @@ public struct Button {
         result.position = value
         return result
     }
-    
-//    @discardableResult public func size(_ value: CGSize) -> Self {
-//        var result = self
-//        result.size = value
-//        return result
-//    }
     
     @discardableResult public func color(_ value: SKColor) -> Self {
         var result = self

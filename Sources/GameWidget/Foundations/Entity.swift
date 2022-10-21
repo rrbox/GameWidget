@@ -10,7 +10,6 @@ import GameplayKit
 final private class UserInterfaceBaseNode: GKSKNodeComponent {}
 
 final public class UserInterfaceDisplay<T: Widget>: GKSKNodeComponent {
-    
     init(_ display: T) {
         super.init(node: display.node())
     }

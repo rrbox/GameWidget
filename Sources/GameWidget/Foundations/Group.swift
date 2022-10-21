@@ -9,7 +9,6 @@ import CoreGraphics
 import SpriteKit
 
 @resultBuilder public struct GroupBuilder {
-    
     public static func buildBlock<C0: Widget>(_ c0: C0) -> some WidgetList {
         Single(widget: c0)
     }
@@ -103,7 +102,6 @@ public protocol WidgetList {
 
 /// 再帰可能. widget のペアです. オーバーヘッドはありません.
 public struct RecursiveGroup<T: WidgetList, U: Widget>: WidgetList {
-    
     var first: T
     var second: U
     
@@ -121,7 +119,6 @@ public struct RecursiveGroup<T: WidgetList, U: Widget>: WidgetList {
 
 // 一つの widget から RecursiveGroup を生成するためのラッパー.
 struct Single<T: Widget>: WidgetList {
-    
     var widget: T
     
     func append<U: Widget>(_ newWidget: U) -> RecursiveGroup<Self, U> {
@@ -139,7 +136,6 @@ struct Single<T: Widget>: WidgetList {
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
 public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
-    
     public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
@@ -176,7 +172,6 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
 public struct Extension<Content: WidgetList>: Widget, WidgetList {
-    
     var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {
