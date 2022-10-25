@@ -7,71 +7,114 @@
 
 
 import SpriteKit
-import GameplayKit
+
+public protocol ContextProtocol {
+    init()
+}
+
+extension Never: ContextProtocol {
+    public init() {
+        fatalError()
+    }
+}
+
+public protocol Modifier {
+    associatedtype Context: ContextProtocol
+    func mod(context: inout Context)
+}
+
+public protocol ContextBuilder {
+    associatedtype Mod: Modifier
+    
+    var modData: Mod { get set }
+    func mod(context: inout Mod.Context)
+}
+
+public struct Link<Previous: ContextBuilder, Mod: Modifier>: ContextBuilder where Previous.Mod.Context == Mod.Context {
+    var previous: Previous
+    public var modData: Mod
+    
+    public func mod(context: inout Mod.Context) {
+        self.previous.mod(context: &context)
+        self.modData.mod(context: &context)
+    }
+    
+}
+
+public struct SingleModifieredBuilder<T: Modifier>: ContextBuilder {
+    public var modData: T
+    
+    public func mod(context: inout T.Context) {
+        self.modData.mod(context: &context)
+    }
+    
+    func modifiered<T: Modifier>(mod: T) -> Next<T> {
+        .init(previous: self, modData: mod)
+    }
+}
+
+public extension ContextBuilder {
+    typealias Next<T: Modifier> = Link<Self, T> where T.Context == Self.Mod.Context
+    
+    func context() -> Mod.Context {
+        var result = Mod.Context()
+        self.mod(context: &result)
+        return result
+    }
+    
+    func modifiered<T: Modifier>(mod: T) -> Next<T> {
+        .init(previous: self, modData: mod)
+    }
+}
 
 public protocol Widget {
+    func node(context: Context) -> SKNode
     func node() -> SKNode
     func addTo(parent list: inout [SKNode])
     
-    associatedtype Context
+    associatedtype Context: ContextProtocol
+    
 }
 
 public extension Widget {
     func addTo(parent list: inout [SKNode]) {
         list.append(self.node())
     }
-}
-
-public protocol MoveableItem: Widget {
-    var position: CGPoint { get set }
-}
-
-public extension MoveableItem {
-    func position(_ value: CGPoint) -> Self {
-        var result = self
-        result.position = value
-        return result
+    
+    func node() -> SKNode {
+        self.node(context: Context())
     }
 }
 
-public protocol RotatableItem: Widget {
-    var zRotation: CGFloat { get set }
-}
-
-public extension RotatableItem {
-    func zRotation(_ value: CGFloat) -> Self {
-        var result = self
-        result.zRotation = value
-        return result
+public struct ModifieredWidget<Body: Widget, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
+    public func node(context: Body.Context) -> SKNode {
+        fatalError("\(context)")
     }
     
-}
-
-public protocol ScalableItem: Widget {
-    var xScale: CGFloat { get set }
-    var yScale: CGFloat { get set }
-}
-
-public extension ScalableItem {
-    func scale(_ value: CGFloat) -> Self {
-        var result = self
-        result.xScale = value
-        result.yScale = value
-        return result
+    public func node() -> SKNode {
+        var context = Context()
+        self.builder.mod(context: &context)
+        return body.node(context: context)
     }
     
-    func xScale(_ value: CGFloat) -> Self {
-        var result = self
-        result.xScale = value
-        return result
-    }
+    public typealias Context = Body.Context
+    public typealias Next<T: Modifier> = ModifieredWidget<Body, Builder.Next<T>> where T.Context == Body.Context
     
-    func yScale(_ value: CGFloat) -> Self {
-        var result = self
-        result.yScale = value
-        return result
-    }
+    var body: Body
+    var builder: Builder
     
+    // Widget.modifier<T>(mod)(下記)に吸われてしまい, 実行されない... -> ModifieredWidget が body に入ってしまう -> node(context) が実行されてエラーになる.
+    // SKNodeBuilder 同様に empty を作って初期のモディファイアにした方がいいかも.
+    // 願望としては, 起点とモディファイアを分離したい.
+    func modifier<T: Modifier>(mod: T) -> Next<T> {
+        .init(body: self.body, builder: self.builder.modifiered(mod: mod))
+    }
 }
 
-public typealias NodeWidget = MoveableItem & RotatableItem & ScalableItem
+public extension Widget {
+    typealias Next<T: Modifier> = ModifieredWidget<Self, SingleModifieredBuilder<T>> where T.Context == Self.Context
+    
+    func modifier<T: Modifier>(mod: T) -> Next<T> {
+        .init(body: self, builder: SingleModifieredBuilder(modData: mod))
+    }
+}

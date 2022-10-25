@@ -8,30 +8,62 @@
 import Foundation
 
 
-protocol PositionContext {
+public protocol PositionContextProtocol: ContextProtocol {
     var position: CGPoint { get set }
 }
 
-struct Position<Context: PositionContext> {
+public struct Position<Context: PositionContextProtocol>: Modifier {
     var value: CGPoint
-    func mod(context: inout Context) {
+    public func mod(context: inout Context) {
         context.position = self.value
     }
 }
 
-protocol Modifier {
-    associatedtype Context
-    func mod(context: inout Context)
+public extension Widget where Context: PositionContextProtocol {
+    func position(_ value: CGPoint) -> Next<Position<Context>> {
+        self.modifier(mod: Position(value: value))
+    }
 }
 
-extension Position: Modifier {
+
+public protocol RotatableItem: Widget {
+    var zRotation: CGFloat { get set }
+}
+
+public extension RotatableItem {
+    func zRotation(_ value: CGFloat) -> Self {
+        var result = self
+        result.zRotation = value
+        return result
+    }
     
 }
 
-
-
-extension Widget {
-    func modifier<Mod: Modifier>(mod: Mod) -> Self {
-        
-    }
+public protocol ScalableItem: Widget {
+    var xScale: CGFloat { get set }
+    var yScale: CGFloat { get set }
 }
+
+public extension ScalableItem {
+    func scale(_ value: CGFloat) -> Self {
+        var result = self
+        result.xScale = value
+        result.yScale = value
+        return result
+    }
+    
+    func xScale(_ value: CGFloat) -> Self {
+        var result = self
+        result.xScale = value
+        return result
+    }
+    
+    func yScale(_ value: CGFloat) -> Self {
+        var result = self
+        result.yScale = value
+        return result
+    }
+    
+}
+
+public typealias NodeWidget = RotatableItem & ScalableItem

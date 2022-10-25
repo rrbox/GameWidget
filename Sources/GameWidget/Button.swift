@@ -188,11 +188,24 @@ fileprivate final class ButtonSensor: SKSpriteNode {
     
 }
 
-public struct ButtonContext {
+public struct ButtonColorMod: Modifier {
+    public typealias Context = ButtonContext
+
+    var color: SKColor
+
+    public func mod(context: inout ButtonContext) {
+        context.color = self.color
+    }
+
+}
+
+public struct ButtonContext: ContextProtocol, PositionContextProtocol {
     var color = SKColor.white
-    var position = CGPoint.zero
+    public var position = CGPoint.zero
     var text: String?
     var actionType = ActionType.scale
+    
+    public init() {}
 }
 
 public struct Button {
@@ -211,17 +224,17 @@ public struct Button {
         self.name = name
     }
     
-    @discardableResult public func position(_ value: CGPoint) -> Self {
-        var result = self
-        result.context.position = value
-        return result
-    }
+//    @discardableResult public func position(_ value: CGPoint) -> Self {
+//        var result = self
+//        result.context.position = value
+//        return result
+//    }
     
-    @discardableResult public func color(_ value: SKColor) -> Self {
-        var result = self
-        result.context.color = value
-        return result
-    }
+//    @discardableResult public func color(_ value: SKColor) -> Self {
+//        var result = self
+//        result.context.color = value
+//        return result
+//    }
     
     @discardableResult public func text(_ value: String) -> Self {
         var result = self
@@ -240,23 +253,29 @@ public struct Button {
 extension Button: Widget {
     public typealias Context = ButtonContext
     
-    public func node() -> SKNode {
+    public func node(context: Context) -> SKNode {
         let result = SKNode()
         
-        let label = SKLabelNode(text: self.context.text ?? "\(self.name)")
+        let label = SKLabelNode(text: context.text ?? "\(self.name)")
         label.verticalAlignmentMode = .center
         label.zPosition = -1
         
-        let sensor = ButtonSensor(color: self.context.color, size: label.frame.size)
+        let sensor = ButtonSensor(color: context.color, size: label.frame.size)
         sensor.size.width += 10
         sensor.alpha = 0.01
         sensor.roleName = self.name
-        sensor.setAction(type: self.context.actionType)
+        sensor.setAction(type: context.actionType)
         
         result.addChild(sensor)
         result.addChild(label)
-        result.position = self.context.position
+        result.position = context.position
         return result
     }
     
+}
+
+extension Widget where Context == ButtonContext {
+    public func color(_ value: SKColor) -> Next<ButtonColorMod> {
+        self.modifier(mod: .init(color: value))
+    }
 }

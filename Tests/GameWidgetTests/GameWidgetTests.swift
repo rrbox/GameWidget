@@ -7,8 +7,8 @@ final class NodeTests: XCTestCase {
             Button(.init("test"))
         }
             .position(CGPoint(x: 1, y: 1))
-            .scale(2)
-            .zRotation(2)
+//            .scale(2)
+//            .zRotation(2)
             .node()
             
         XCTAssertEqual(node.position, CGPoint(x: 1, y: 1))

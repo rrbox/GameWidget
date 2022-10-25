@@ -133,17 +133,26 @@ struct Single<T: Widget>: WidgetList {
     
 }
 
+public struct NodeContext: ContextProtocol, PositionContextProtocol {
+    public var position: CGPoint = .zero
+    var zRotation: CGFloat = .zero
+    var xScale: CGFloat = 1
+    var yScale: CGFloat = 1
+    
+    public init() {}
+}
+
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
 public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
-    public typealias Context = Never
+    public typealias Context = NodeContext
     
-    public var position: CGPoint = .zero
+    var content: Content
+    
+//    public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
     public var yScale: CGFloat = 1
-    
-    var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {
         self.content = content()
@@ -155,13 +164,13 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
         return result
     }
     
-    public func node() -> SKNode {
+    public func node(context: Context) -> SKNode {
         let result = SKNode()
         
-        result.position = self.position
-        result.zRotation = self.zRotation
-        result.xScale = self.xScale
-        result.yScale = self.yScale
+        result.position = context.position
+        result.zRotation = context.zRotation
+        result.xScale = context.xScale
+        result.yScale = context.yScale
         
         for i in self.content.widgetNodes() {
             result.addChild(i)
@@ -174,6 +183,10 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
 public struct Extension<Content: WidgetList>: Widget, WidgetList {
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public typealias Context = Never
     var content: Content
     

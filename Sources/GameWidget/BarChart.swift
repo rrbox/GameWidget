@@ -19,13 +19,15 @@ public enum HorizontalBarChartAlignmentMode {
     }
 }
 
-public struct HorizontalSingleBarChartContext {
+public struct HorizontalSingleBarChartContext: ContextProtocol {
     var position = CGPoint.zero
     var width = CGFloat(10)
     var length = CGFloat(100)
     var alignment = HorizontalBarChartAlignmentMode.right
     var color = SKColor.systemGreen
     var backgroundColor = SKColor.gray
+    
+    public init() {}
 }
 
 public struct HorizontalSingleBarChart {
@@ -84,7 +86,7 @@ public struct HorizontalSingleBarChart {
 extension HorizontalSingleBarChart: Widget {
     public typealias Context = HorizontalSingleBarChartContext
     
-    public func node() -> SKNode {
+    public func node(context: Context) -> SKNode {
         let result = SKSpriteNode(
             color: self.context.backgroundColor,
             size: CGSize(width: self.context.length, height: self.context.width))
