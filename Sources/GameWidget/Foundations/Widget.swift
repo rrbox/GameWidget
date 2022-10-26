@@ -86,7 +86,7 @@ public extension Widget {
     }
 }
 
-public struct ModifieredWidget<Body: Widget, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
+public struct ModifiableWidget<Body: Widget, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
     public func node(context: Body.Context) -> SKNode {
         fatalError("\(context)")
     }
@@ -98,7 +98,7 @@ public struct ModifieredWidget<Body: Widget, Builder: ContextBuilder>: Widget wh
     }
     
     public typealias Context = Body.Context
-    public typealias Next<T: Modifier> = ModifieredWidget<Body, Builder.Next<T>> where T.Context == Body.Context
+    public typealias Next<T: Modifier> = ModifiableWidget<Body, Builder.Next<T>> where T.Context == Body.Context
     
     var body: Body
     var builder: Builder
@@ -106,15 +106,27 @@ public struct ModifieredWidget<Body: Widget, Builder: ContextBuilder>: Widget wh
     // Widget.modifier<T>(mod)(下記)に吸われてしまい, 実行されない... -> ModifieredWidget が body に入ってしまう -> node(context) が実行されてエラーになる.
     // SKNodeBuilder 同様に empty を作って初期のモディファイアにした方がいいかも.
     // 願望としては, 起点とモディファイアを分離したい.
+    // -> rx の API を参考にし, mod プロパティでモディファイア追加可能になるようにした.
     func modifier<T: Modifier>(mod: T) -> Next<T> {
         .init(body: self.body, builder: self.builder.modifiered(mod: mod))
     }
 }
 
-public extension Widget {
-    typealias Next<T: Modifier> = ModifieredWidget<Self, SingleModifieredBuilder<T>> where T.Context == Self.Context
+public struct Empty<Context: ContextProtocol>: Modifier {
+    public func mod(context: inout Context) {
+        
+    }
     
-    func modifier<T: Modifier>(mod: T) -> Next<T> {
-        .init(body: self, builder: SingleModifieredBuilder(modData: mod))
+}
+
+public extension Widget {
+    typealias Next = ModifiableWidget<Self, SingleModifieredBuilder<Empty<Context>>>
+    
+//    func modifier<T: Modifier>(mod: T) -> Next<T> {
+//        .init(body: self, builder: SingleModifieredBuilder(modData: mod))
+//    }
+    
+    var mod: Next {
+        .init(body: self, builder: SingleModifieredBuilder(modData: Empty()))
     }
 }

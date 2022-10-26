@@ -274,7 +274,7 @@ extension Button: Widget {
     
 }
 
-extension Widget where Context == ButtonContext {
+extension ModifiableWidget where Context == ButtonContext {
     public func color(_ value: SKColor) -> Next<ButtonColorMod> {
         self.modifier(mod: .init(color: value))
     }

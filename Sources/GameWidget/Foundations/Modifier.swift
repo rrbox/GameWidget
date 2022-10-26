@@ -19,12 +19,11 @@ public struct Position<Context: PositionContextProtocol>: Modifier {
     }
 }
 
-public extension Widget where Context: PositionContextProtocol {
+public extension ModifiableWidget where Context: PositionContextProtocol {
     func position(_ value: CGPoint) -> Next<Position<Context>> {
         self.modifier(mod: Position(value: value))
     }
 }
-
 
 public protocol RotatableItem: Widget {
     var zRotation: CGFloat { get set }
