@@ -8,20 +8,10 @@
 import SpriteKit
 
 public struct NodeContext: ContextProtocol {
+    public var position: CGPoint = .zero
+    
     public init() {
         
-    }
-}
-
-public protocol MoveableItem: Widget {
-    var position: CGPoint { get set }
-}
-
-public extension MoveableItem {
-    func position(_ value: CGPoint) -> Self {
-        var result = self
-        result.position = value
-        return result
     }
 }
 
@@ -65,7 +55,7 @@ public extension ScalableItem {
     
 }
 
-public typealias NodeWidget = MoveableItem & RotatableItem & ScalableItem
+public typealias NodeWidget = RotatableItem & ScalableItem
 
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.

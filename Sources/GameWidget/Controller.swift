@@ -100,7 +100,7 @@ class ControllerAreaNode: SKSpriteNode {
     
 }
 
-public struct ControllerArea: Widget, MoveableItem {
+public struct ControllerArea: Widget {
     public typealias Context = Never
     
     var size: CGSize = CGSize(width: 100, height: 100)
