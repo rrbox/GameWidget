@@ -7,12 +7,30 @@
 
 import SpriteKit
 
-public struct NodeContext: ContextProtocol {
+public protocol PositionContextProtocol: ContextProtocol {
+    var position: CGPoint { get set }
+    
+}
+
+public struct NodeContext: PositionContextProtocol {
     public var position: CGPoint = .zero
     
     public init() {
         
     }
+}
+
+public struct Position<Context: PositionContextProtocol>: Modifier {
+    var value: CGPoint
+    
+    public init(value: CGPoint) {
+        self.value = value
+    }
+    
+    public func mod(context: inout Context) {
+        context.position = self.value
+    }
+    
 }
 
 public protocol RotatableItem: Widget {
@@ -62,7 +80,6 @@ public typealias NodeWidget = RotatableItem & ScalableItem
 public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
     public typealias Context = NodeContext
     
-    public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
     public var yScale: CGFloat = 1
@@ -82,7 +99,7 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
     public func node(context: NodeContext) -> SKNode {
         let result = SKNode()
         
-        result.position = self.position
+        result.position = context.position
         result.zRotation = self.zRotation
         result.xScale = self.xScale
         result.yScale = self.yScale
