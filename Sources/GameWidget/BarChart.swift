@@ -79,6 +79,7 @@ public struct HorizontalSingleBarChart {
 }
 
 extension HorizontalSingleBarChart: Widget {
+    public typealias Context = Never
     
     public func node() -> SKNode {
         let result = SKSpriteNode(color: self.backgroundColor, size: CGSize(width: self.length, height: self.width))
