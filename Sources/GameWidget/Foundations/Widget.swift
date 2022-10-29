@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 public protocol Widget {
+    func node(context: Context) -> SKNode
     func node() -> SKNode
     func addTo(parent list: inout [SKNode])
     
