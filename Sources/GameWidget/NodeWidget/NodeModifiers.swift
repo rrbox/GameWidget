@@ -95,3 +95,26 @@ public struct NodeContext: PositionContextProtocol, RotatableContextProtocol, Sc
         
     }
 }
+
+public extension ModifiableWidget where Context == NodeContext {
+    func position(_ value: CGPoint) -> Next<Position<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+    
+    func zRotation(_ value: CGFloat) -> Next<ZRotation<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+    
+    func scale(_ value: CGFloat) -> Next<Scale<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+    
+    func xScale(_ value: CGFloat) -> Next<XScale<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+    
+    func yScale(_ value: CGFloat) -> Next<YScale<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+    
+}
