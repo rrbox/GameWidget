@@ -21,4 +21,8 @@ public extension Widget {
     func addTo(parent list: inout [SKNode]) {
         list.append(self.node())
     }
+    
+    func node() -> SKNode {
+        self.node(context: Context())
+    }
 }
