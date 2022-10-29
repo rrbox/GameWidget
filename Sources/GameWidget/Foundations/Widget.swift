@@ -106,7 +106,7 @@ public struct ModifiableWidget<Body: Widget, Builder: ContextBuilder>: Widget wh
     // Widget.modifier<T>(mod)(下記)に吸われてしまい, 実行されない... -> ModifieredWidget が body に入ってしまう -> node(context) が実行されてエラーになる.
     // SKNodeBuilder 同様に empty を作って初期のモディファイアにした方がいいかも.
     // 願望としては, 起点とモディファイアを分離したい.
-    // -> rx の API を参考にし, mod プロパティでモディファイア追加可能になるようにした.
+    // -> rx の API を参考にし, modifiable プロパティでモディファイア追加可能になるようにした.
     func modifier<T: Modifier>(mod: T) -> Next<T> {
         .init(body: self.body, builder: self.builder.modifiered(mod: mod))
     }
@@ -120,13 +120,13 @@ public struct Empty<Context: ContextProtocol>: Modifier {
 }
 
 public extension Widget {
-    typealias Next = ModifiableWidget<Self, SingleModifieredBuilder<Empty<Context>>>
+    typealias Modifiable = ModifiableWidget<Self, SingleModifieredBuilder<Empty<Context>>>
     
 //    func modifier<T: Modifier>(mod: T) -> Next<T> {
 //        .init(body: self, builder: SingleModifieredBuilder(modData: mod))
 //    }
     
-    var mod: Next {
+    var modifiable: Modifiable {
         .init(body: self, builder: SingleModifieredBuilder(modData: Empty()))
     }
 }
