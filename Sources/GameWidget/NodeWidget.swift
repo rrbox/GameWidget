@@ -12,14 +12,6 @@ public protocol PositionContextProtocol: ContextProtocol {
     
 }
 
-public struct NodeContext: PositionContextProtocol {
-    public var position: CGPoint = .zero
-    
-    public init() {
-        
-    }
-}
-
 public struct Position<Context: PositionContextProtocol>: Modifier {
     var value: CGPoint
     
@@ -33,17 +25,21 @@ public struct Position<Context: PositionContextProtocol>: Modifier {
     
 }
 
-public protocol RotatableItem: Widget {
+public protocol RotatableContextProtocol: ContextProtocol {
     var zRotation: CGFloat { get set }
+    
 }
 
-public extension RotatableItem {
-    func zRotation(_ value: CGFloat) -> Self {
-        var result = self
-        result.zRotation = value
-        return result
+public struct ZRotation<Context: RotatableContextProtocol>: Modifier {
+    var value: CGFloat
+    
+    public init(value: CGFloat) {
+        self.value = value
     }
     
+    public func mod(context: inout Context) {
+        context.zRotation = self.value
+    }
 }
 
 public protocol ScalableItem: Widget {
@@ -73,14 +69,22 @@ public extension ScalableItem {
     
 }
 
-public typealias NodeWidget = RotatableItem & ScalableItem
+public struct NodeContext: PositionContextProtocol, RotatableContextProtocol {
+    public var position: CGPoint = .zero
+    public var zRotation: CGFloat = .zero
+    
+    public init() {
+        
+    }
+}
+
+public typealias NodeWidget = ScalableItem
 
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
 public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
     public typealias Context = NodeContext
     
-    public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
     public var yScale: CGFloat = 1
     
@@ -100,7 +104,7 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
         let result = SKNode()
         
         result.position = context.position
-        result.zRotation = self.zRotation
+        result.zRotation = context.zRotation
         result.xScale = self.xScale
         result.yScale = self.yScale
         
