@@ -24,7 +24,7 @@ public struct ModifiableWidget<Body: Widget, Builder: ContextBuilder>: Widget wh
     var body: Body
     var builder: Builder
     
-    func modifier<T: Modifier>(mod: T) -> Next<T> {
+    public func modifier<T: Modifier>(mod: T) -> Next<T> {
         .init(body: self.body, builder: self.builder.modifiered(mod: mod))
     }
 }
