@@ -23,3 +23,16 @@ public extension ContextBuilder {
         .init(previous: self, modData: mod)
     }
 }
+
+public struct SingleModifierBuilder<T: Modifier>: ContextBuilder {
+    public var modData: T
+    
+    public func mod(context: inout T.Context) {
+        self.modData.mod(context: &context)
+    }
+    
+    func modifiered<T: Modifier>(mod: T) -> Next<T> {
+        .init(previous: self, modData: mod)
+    }
+}
+
