@@ -42,52 +42,65 @@ public struct ZRotation<Context: RotatableContextProtocol>: Modifier {
     }
 }
 
-public protocol ScalableItem: Widget {
+public protocol ScalableContextProtocol: ContextProtocol {
     var xScale: CGFloat { get set }
     var yScale: CGFloat { get set }
-}
-
-public extension ScalableItem {
-    func scale(_ value: CGFloat) -> Self {
-        var result = self
-        result.xScale = value
-        result.yScale = value
-        return result
-    }
-    
-    func xScale(_ value: CGFloat) -> Self {
-        var result = self
-        result.xScale = value
-        return result
-    }
-    
-    func yScale(_ value: CGFloat) -> Self {
-        var result = self
-        result.yScale = value
-        return result
-    }
     
 }
 
-public struct NodeContext: PositionContextProtocol, RotatableContextProtocol {
+public struct Scale<Context: ScalableContextProtocol>: Modifier {
+    var value: CGFloat
+    
+    public init(value: CGFloat) {
+        self.value = value
+    }
+    
+    public func mod(context: inout Context) {
+        context.xScale = self.value
+        context.yScale = self.value
+    }
+}
+
+public struct XScale<Context: ScalableContextProtocol>: Modifier {
+    var value: CGFloat
+    
+    public init(value: CGFloat) {
+        self.value = value
+    }
+    
+    public func mod(context: inout Context) {
+        context.xScale = self.value
+    }
+}
+
+public struct YScale<Context: ScalableContextProtocol>: Modifier {
+    var value: CGFloat
+    
+    public init(value: CGFloat) {
+        self.value = value
+    }
+    
+    public func mod(context: inout Context) {
+        context.xScale = self.value
+    }
+}
+
+public struct NodeContext: PositionContextProtocol, RotatableContextProtocol, ScalableContextProtocol {
     public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
+    public var xScale: CGFloat = 1
+    public var yScale: CGFloat = 1
     
     public init() {
         
     }
 }
 
-public typealias NodeWidget = ScalableItem
-
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
-public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
+public struct Node<Content: WidgetList>: Widget, WidgetList {
     public typealias Context = NodeContext
-    
-    public var xScale: CGFloat = 1
-    public var yScale: CGFloat = 1
-    
+    public
     var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {
@@ -105,8 +118,8 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
         
         result.position = context.position
         result.zRotation = context.zRotation
-        result.xScale = self.xScale
-        result.yScale = self.yScale
+        result.xScale = context.xScale
+        result.yScale = context.yScale
         
         for i in self.content.widgetNodes() {
             result.addChild(i)
