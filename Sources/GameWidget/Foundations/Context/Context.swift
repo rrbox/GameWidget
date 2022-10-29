@@ -8,3 +8,9 @@
 public protocol ContextProtocol {
     init()
 }
+
+extension Never: ContextProtocol {
+    public init() {
+        fatalError()
+    }
+}
