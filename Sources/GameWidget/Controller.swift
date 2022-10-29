@@ -112,6 +112,10 @@ public struct ControllerArea: Widget, MoveableItem {
         self.id = id
     }
     
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public func node() -> SKNode {
         let result = ControllerAreaNode(color: .black, size: self.size)
         result.id = self.id

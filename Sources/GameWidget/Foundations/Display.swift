@@ -22,6 +22,10 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
         self.first.widgetNodes() + self.second.widgetNodes()
     }
     
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public func node() -> SKNode {
         let result = SKNode()
         
@@ -49,6 +53,10 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
         self.widgetList.widgetNodes()
     }
     
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public func node() -> SKNode {
         let result = SKNode()
         for node in self.widgetList.widgetNodes() {
@@ -68,6 +76,10 @@ public struct Display: Widget {
     
     public func place<T: WidgetList>(@GroupBuilder block: () -> T) -> SingleWidgetDisplay<T> {
         SingleWidgetDisplay(widgetList: block())
+    }
+    
+    public func node(context: Never) -> SKNode {
+        
     }
     
     public func node() -> SKNode {

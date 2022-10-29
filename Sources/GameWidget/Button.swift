@@ -247,6 +247,10 @@ public struct Button {
 extension Button: Widget {
     public typealias Context = Never
     
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public func node() -> SKNode {
         let result = SKNode()
         

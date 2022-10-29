@@ -158,6 +158,10 @@ public struct Node<Content: WidgetList>: NodeWidget, WidgetList {
         return result
     }
     
+    public func node(context: Never) -> SKNode {
+        
+    }
+    
     public func node() -> SKNode {
         let result = SKNode()
         
@@ -187,6 +191,10 @@ public struct Extension<Content: WidgetList>: Widget, WidgetList {
     
     public func widgetNodes() -> [SKNode] {
         self.content.widgetNodes()
+    }
+    
+    public func node(context: Never) -> SKNode {
+        
     }
     
     public func node() -> SKNode {
