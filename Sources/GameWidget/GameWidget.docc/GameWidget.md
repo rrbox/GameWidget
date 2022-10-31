@@ -13,13 +13,13 @@ User interface widgets for SpriteKit.
 - ``Button``
 - ``HorizontalSingleBarChart``
 - ``ControllerArea``
-- ``Node``
+- <doc:Node_widget>
 
 ### Layout widgets
 
 - ``Display``
 - ``Extension``
-- ``Node``
+- <doc:Node_widget>
 
 ### Create custom Widget
 
