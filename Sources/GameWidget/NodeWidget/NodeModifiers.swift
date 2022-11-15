@@ -25,6 +25,12 @@ public struct Position<Context: PositionContextProtocol>: Modifier {
     
 }
 
+public extension ModifiableWidget where Context: PositionContextProtocol {
+    func position(_ value: CGPoint) -> Next<Position<Context>> {
+        self.modifier(mod: .init(value: value))
+    }
+}
+
 public protocol RotatableContextProtocol: ContextProtocol {
     var zRotation: CGFloat { get set }
     
@@ -39,6 +45,12 @@ public struct ZRotation<Context: RotatableContextProtocol>: Modifier {
     
     public func mod(context: inout Context) {
         context.zRotation = self.value
+    }
+}
+
+public extension ModifiableWidget where Context: RotatableContextProtocol {
+    func zRotation(_ value: CGFloat) -> Next<ZRotation<Context>> {
+        self.modifier(mod: .init(value: value))
     }
 }
 
@@ -85,26 +97,7 @@ public struct YScale<Context: ScalableContextProtocol>: Modifier {
     }
 }
 
-public struct NodeContext: PositionContextProtocol, RotatableContextProtocol, ScalableContextProtocol {
-    public var position: CGPoint = .zero
-    public var zRotation: CGFloat = .zero
-    public var xScale: CGFloat = 1
-    public var yScale: CGFloat = 1
-    
-    public init() {
-        
-    }
-}
-
-public extension ModifiableWidget where Context == NodeContext {
-    func position(_ value: CGPoint) -> Next<Position<Context>> {
-        self.modifier(mod: .init(value: value))
-    }
-    
-    func zRotation(_ value: CGFloat) -> Next<ZRotation<Context>> {
-        self.modifier(mod: .init(value: value))
-    }
-    
+public extension ModifiableWidget where Context: ScalableContextProtocol {
     func scale(_ value: CGFloat) -> Next<Scale<Context>> {
         self.modifier(mod: .init(value: value))
     }
@@ -116,5 +109,15 @@ public extension ModifiableWidget where Context == NodeContext {
     func yScale(_ value: CGFloat) -> Next<YScale<Context>> {
         self.modifier(mod: .init(value: value))
     }
+}
+
+public struct NodeContext: PositionContextProtocol, RotatableContextProtocol, ScalableContextProtocol {
+    public var position: CGPoint = .zero
+    public var zRotation: CGFloat = .zero
+    public var xScale: CGFloat = 1
+    public var yScale: CGFloat = 1
     
+    public init() {
+        
+    }
 }
