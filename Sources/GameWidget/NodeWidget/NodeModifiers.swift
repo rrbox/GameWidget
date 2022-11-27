@@ -9,7 +9,6 @@ import CoreGraphics
 
 public protocol PositionContextProtocol: ContextProtocol {
     var position: CGPoint { get set }
-    
 }
 
 public struct Position<Context: PositionContextProtocol>: Modifier {
@@ -111,11 +110,34 @@ public extension ModifiableWidget where Context: ScalableContextProtocol {
     }
 }
 
-public struct NodeContext: PositionContextProtocol, RotatableContextProtocol, ScalableContextProtocol {
+public protocol ZPositionContextProtocol: ContextProtocol {
+    var zPosition: CGFloat { get set }
+}
+
+public struct ZPosition<Context: ZPositionContextProtocol>: Modifier {
+    var value: CGFloat
+    public func mod(context: inout Context) {
+        context.zPosition = self.value
+    }
+}
+
+public extension ModifiableWidget where Context: ZPositionContextProtocol {
+    func zPosition(_ value: CGFloat) -> Next<ZPosition<Context>> {
+        self.modifier(mod: ZPosition(value: value))
+    }
+}
+
+
+public struct NodeContext: PositionContextProtocol,
+                           RotatableContextProtocol,
+                           ScalableContextProtocol,
+                           ZPositionContextProtocol {
+    
     public var position: CGPoint = .zero
     public var zRotation: CGFloat = .zero
     public var xScale: CGFloat = 1
     public var yScale: CGFloat = 1
+    public var zPosition: CGFloat = .zero
     
     public init() {
         
