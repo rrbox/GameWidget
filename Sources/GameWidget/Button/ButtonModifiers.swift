@@ -7,24 +7,24 @@
 
 import SpriteKit
 
-public struct ButtonContext: ContextProtocol, PositionContextProtocol {
+public struct ButtonContext: ContextProtocol, PositionContextProtocol, ColorizableContextProtocol {
     public init() {}
     
-    var color = SKColor.white
+    public var color = SKColor.white
     public var position = CGPoint.zero
     var text: String?
     var actionType = ActionType.scale
 }
 
 public enum ButtonModifiers {
-    public struct Color: Modifier {
-        public typealias Context = ButtonContext
-        var value: SKColor
-        
-        public func mod(context: inout ButtonContext) {
-            context.color = self.value
-        }
-    }
+//    public struct Color: Modifier {
+//        public typealias Context = ButtonContext
+//        var value: SKColor
+//        
+//        public func mod(context: inout ButtonContext) {
+//            context.color = self.value
+//        }
+//    }
     
     public struct Text: Modifier {
         public typealias Context = ButtonContext
@@ -47,9 +47,9 @@ public enum ButtonModifiers {
 }
 
 public extension ModifiableWidget where Context == ButtonContext {
-    func color(_ value: SKColor) -> Next<ButtonModifiers.Color> {
-        self.modifier(mod: ButtonModifiers.Color(value: value))
-    }
+//    func color(_ value: SKColor) -> Next<ButtonModifiers.Color> {
+//        self.modifier(mod: ButtonModifiers.Color(value: value))
+//    }
     
     func text(_ value: String?) -> Next<ButtonModifiers.Text> {
         self.modifier(mod: ButtonModifiers.Text(value: value))
