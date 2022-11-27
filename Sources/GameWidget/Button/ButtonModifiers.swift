@@ -20,23 +20,6 @@ public struct ButtonContext: ContextProtocol,
 }
 
 public enum ButtonModifiers {
-//    public struct Color: Modifier {
-//        public typealias Context = ButtonContext
-//        var value: SKColor
-//        
-//        public func mod(context: inout ButtonContext) {
-//            context.color = self.value
-//        }
-//    }
-    
-//    public struct Text: Modifier {
-//        public typealias Context = ButtonContext
-//        var value: String
-//
-//        public func mod(context: inout ButtonContext) {
-//            context.text = self.value
-//        }
-//    }
     
     public struct Action: Modifier {
         public typealias Context = ButtonContext
@@ -50,14 +33,6 @@ public enum ButtonModifiers {
 }
 
 public extension ModifiableWidget where Context == ButtonContext {
-//    func color(_ value: SKColor) -> Next<ButtonModifiers.Color> {
-//        self.modifier(mod: ButtonModifiers.Color(value: value))
-//    }
-    
-//    func text(_ value: String?) -> Next<ButtonModifiers.Text> {
-//        self.modifier(mod: ButtonModifiers.Text(value: value))
-//    }
-    
     func actionType(_ value: ActionType) -> Next<ButtonModifiers.Action> {
         self.modifier(mod: ButtonModifiers.Action(value: value))
     }
