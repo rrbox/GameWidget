@@ -7,14 +7,14 @@
 
 import SpriteKit
 
-public struct HorizontalSingleBarChartContext: PositionContextProtocol {
+public struct HorizontalSingleBarChartContext: PositionContextProtocol, ColorizableContextProtocol {
     public init() {}
     
     public var position = CGPoint.zero
+    public var color = SKColor.systemGreen
     var width = CGFloat(10)
     var length = CGFloat(100)
     var alignment = HorizontalBarChartAlignmentMode.right
-    var color = SKColor.systemGreen
     var backgroundColor = SKColor.gray
 }
 
@@ -46,15 +46,6 @@ public enum HorizontalSingleBarChartModiifers {
         }
     }
     
-    public struct Color: Modifier {
-        public typealias Context = HorizontalSingleBarChartContext
-        var value: SKColor
-        
-        public func mod(context: inout HorizontalSingleBarChartContext) {
-            context.color = self.value
-        }
-    }
-    
     public struct BackgroundColor: Modifier {
         public typealias Context = HorizontalSingleBarChartContext
         var value: SKColor
@@ -79,11 +70,7 @@ public extension ModifiableWidget where Context == HorizontalSingleBarChartConte
         self.modifier(mod: HorizontalSingleBarChartModiifers.Alignment(value: value))
     }
     
-    func color(_ value: SKColor) -> Next<HorizontalSingleBarChartModiifers.Color> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.Color(value: value))
-    }
-    
-    func backgroundColor(_ value: SKColor) -> Next<HorizontalSingleBarChartModiifers.Color> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.Color(value: value))
+    func backgroundColor(_ value: SKColor) -> Next<HorizontalSingleBarChartModiifers.BackgroundColor> {
+        self.modifier(mod: HorizontalSingleBarChartModiifers.BackgroundColor(value: value))
     }
 }
