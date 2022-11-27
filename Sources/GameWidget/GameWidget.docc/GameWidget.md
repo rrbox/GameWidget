@@ -11,7 +11,7 @@ User interface widgets for SpriteKit.
 ### Widgets
 
 - <doc:Button_widget>
-- ``HorizontalSingleBarChart``
+- <doc:HorizontalSingleBarChart_widget>
 - ``ControllerArea``
 - <doc:Node_widget>
 
