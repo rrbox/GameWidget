@@ -8,6 +8,10 @@ User interface widgets for SpriteKit.
 
 ## Topics
 
+### How to use Widgets
+
+- <doc:WidgetUsage>
+
 ### Widgets
 
 - <doc:Button_widget>
