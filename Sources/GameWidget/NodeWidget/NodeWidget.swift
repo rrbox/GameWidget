@@ -31,6 +31,7 @@ public struct Node<Content: WidgetList>: Widget, WidgetList {
         result.zRotation = context.zRotation
         result.xScale = context.xScale
         result.yScale = context.yScale
+        result.zPosition = context.zPosition
         
         for i in self.content.widgetNodes() {
             result.addChild(i)
