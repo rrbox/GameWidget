@@ -100,9 +100,8 @@ class ControllerAreaNode: SKSpriteNode {
     
 }
 
-public struct ControllerArea: Widget, MoveableItem {
-    var size: CGSize = CGSize(width: 100, height: 100)
-    public var position: CGPoint = .zero
+public struct ControllerArea: Widget {
+    public typealias Context = ControllerContext
     
     var id: ControllerData.Name
     
@@ -110,22 +109,13 @@ public struct ControllerArea: Widget, MoveableItem {
         self.id = id
     }
     
-    public func node() -> SKNode {
-        let result = ControllerAreaNode(color: .black, size: self.size)
+    public func node(context: ControllerContext) -> SKNode {
+        let result = ControllerAreaNode(color: .black, size: context.size)
         result.id = self.id
         ControllerData.inputs.value[self.id] = ControllerData.Input(weight: 0, direction: [])
         result.color = SKColor(red: 1, green: 1, blue: 1, alpha: 0.01)
         result.origin.addChild(result.cursor)
-        result.position = self.position
-        return result
-    }
-    
-}
-
-public extension ControllerArea {
-    func size(_ value: CGSize) -> Self {
-        var result = self
-        result.size = value
+        result.position = context.position
         return result
     }
     
