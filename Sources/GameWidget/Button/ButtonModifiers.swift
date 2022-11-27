@@ -10,12 +10,14 @@ import SpriteKit
 public struct ButtonContext: ContextProtocol,
                              PositionContextProtocol,
                              ColorizableContextProtocol,
-                             TextContextProtocol {
+                             TextContextProtocol,
+                             ZPositionContextProtocol {
     public init() {}
     
     public var color = SKColor.white
     public var position = CGPoint.zero
     public var text: String?
+    public var zPosition: CGFloat = .zero
     var actionType = ActionType.scale
 }
 
