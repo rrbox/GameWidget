@@ -23,36 +23,6 @@ public struct Button {
         self.name = name
     }
     
-//    @discardableResult public func position(_ value: CGPoint) -> Self {
-//        var result = self
-//        result.position = value
-//        return result
-//    }
-    
-//    @discardableResult public func size(_ value: CGSize) -> Self {
-//        var result = self
-//        result.size = value
-//        return result
-//    }
-    
-//    @discardableResult public func color(_ value: SKColor) -> Self {
-//        var result = self
-//        result.color = value
-//        return result
-//    }
-    
-//    @discardableResult public func text(_ value: String) -> Self {
-//        var result = self
-//        result.text = value
-//        return result
-//    }
-//
-//    @discardableResult public func actionType(_ value: ActionType) -> Self {
-//        var result = self
-//        result.actionType = value
-//        return result
-//    }
-    
 }
 
 extension Button: Widget {
