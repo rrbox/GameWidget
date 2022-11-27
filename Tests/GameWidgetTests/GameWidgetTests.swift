@@ -6,6 +6,7 @@ final class NodeTests: XCTestCase {
         let node = Node {
             Button(.init("test"))
         }
+            .modifiable
             .position(CGPoint(x: 1, y: 1))
             .scale(2)
             .zRotation(2)
