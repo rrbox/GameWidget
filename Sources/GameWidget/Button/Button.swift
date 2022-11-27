@@ -44,6 +44,7 @@ extension Button: Widget {
         result.addChild(sensor)
         result.addChild(label)
         result.position = context.position
+        result.zPosition = context.zPosition
         return result
     }
     
