@@ -8,11 +8,15 @@ User interface widgets for SpriteKit.
 
 ## Topics
 
+### How to use Widgets
+
+- <doc:WidgetUsage>
+
 ### Widgets
 
-- ``Button``
-- ``HorizontalSingleBarChart``
-- ``ControllerArea``
+- <doc:Button_widget>
+- <doc:HorizontalSingleBarChart_widget>
+- <doc:ControllerArea_widget>
 - <doc:Node_widget>
 
 ### Layout widgets
