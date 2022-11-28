@@ -7,15 +7,22 @@
 
 import SpriteKit
 
-public struct HorizontalSingleBarChartContext: PositionContextProtocol, ColorizableContextProtocol {
+public struct HorizontalSingleBarChartContext:
+    PositionContextProtocol,
+    ColorizableContextProtocol,
+    AlphaContextProtocol,
+    ZPositionContextProtocol {
+    
     public init() {}
     
     public var position = CGPoint.zero
     public var color = SKColor.systemGreen
+    public var alpha: CGFloat = 1
+    public var zPosition: CGFloat = .zero
     var width = CGFloat(10)
     var length = CGFloat(100)
     var alignment = HorizontalBarChartAlignmentMode.right
-    var backgroundColor = SKColor.gray
+    var backgroundColor: SKColor?
 }
 
 public enum HorizontalSingleBarChartModiifers {

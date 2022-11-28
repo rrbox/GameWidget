@@ -40,16 +40,24 @@ extension HorizontalSingleBarChart: Widget {
     public typealias Context = HorizontalSingleBarChartContext
     
     public func node(context: HorizontalSingleBarChartContext) -> SKNode {
-        let result = SKSpriteNode(color: context.backgroundColor, size: CGSize(width: context.length, height: context.width))
+        
         let bar = HorizontalBarChartNode(color: context.color, size: CGSize(width: context.length, height: context.width))
         
+        bar.alpha = context.alpha
         bar.maxWidth = context.length
         bar.registerTo(center: HorizontalBarChartNode.center, id: self.name)
-        result.anchorPoint = context.alignment.anchorPoint()
         bar.anchorPoint = context.alignment.anchorPoint()
-        result.position = context.position
-        result.addChild(bar)
-        return result
+        bar.position = context.position
+        bar.zPosition = context.zPosition
+        
+        if let backgroundColor = context.backgroundColor {
+            let backgound = SKSpriteNode(color: backgroundColor, size: CGSize(width: context.length, height: context.width))
+            backgound.anchorPoint = context.alignment.anchorPoint()
+            backgound.zPosition = context.zPosition - 0.01
+            bar.addChild(backgound)
+        }
+        
+        return bar
     }
     
 }
