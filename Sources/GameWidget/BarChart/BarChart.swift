@@ -41,7 +41,10 @@ extension HorizontalSingleBarChart: Widget {
     
     public func node(context: HorizontalSingleBarChartContext) -> SKNode {
         let result = SKSpriteNode(color: context.backgroundColor, size: CGSize(width: context.length, height: context.width))
-        let bar = SKSpriteNode(color: context.color, size: CGSize(width: context.length, height: context.width))
+        let bar = HorizontalBarChartNode(color: context.color, size: CGSize(width: context.length, height: context.width))
+        
+        bar.maxWidth = context.length
+        bar.registerTo(center: HorizontalBarChartNode.center, id: self.name)
         result.anchorPoint = context.alignment.anchorPoint()
         bar.anchorPoint = context.alignment.anchorPoint()
         result.position = context.position
