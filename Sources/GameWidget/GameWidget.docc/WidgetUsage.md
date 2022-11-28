@@ -35,6 +35,7 @@ let button = Button(.init("test"))
 すると, その下の行からこの `Button` にメソッドチェーンをつなげることができるようになります.
 
 ```swift
+// 2
 let button = Button(.init("test"))
     .modifiable
     .color(.green)
@@ -44,6 +45,7 @@ let button = Button(.init("test"))
 最後に, `node()` でノードインスタンスを作成してみると, 座標や色が変化しているかと思います.
 
 ```swift
+// 3
 let button = Button(.init("test"))
     .modifiable
     .color(.green)
