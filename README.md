@@ -15,8 +15,10 @@ import SpriteKit
 let node = Display()
 	.place {
 		Button(.init("Select"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 32))
 		Button(.init("Cancel"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -32))
 	}
 	.node()
@@ -33,14 +35,18 @@ Display multiple widgets in one SKNode.
 let node = Display()
 	.place {
 		Button(.init("Select"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 32))
 		Button(.init("Cancel"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -32))
 	}
 	.place {
 		Button(.init("Select_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 64))
 		Button(.init("Cancel_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -64))
 		HorizontalSingleBarChart(name: .init("Bar"))
 	}
@@ -57,10 +63,13 @@ Up to 10 widgets can be placed on a single `Display.place`.
 ```swift
 let node = Node {
 		Button(.init("Select"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 32))
 		Button(.init("Cancel"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -32))
 	}
+	.modifiable
 	.posisition(CGPoint(x: 0, y: 32))
 	.zRotation(0.5)
 	.node()
@@ -78,23 +87,31 @@ Use `Extension` to place more than 10 widgets.
 let node = Display()
 	.place {
 		Button(.init("Select"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 32))
 		Button(.init("Cancel"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -32))
 		Button(.init("Select_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 64))
 		Button(.init("Cancel_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -64))
 		HorizontalSingleBarChart(name: .init("Bar"))
 		//...
 		Extension {
 			Button(.init("Select"))
+				.modifiable
 				.position(CGPoint(x: 0, y: 32))
 			Button(.init("Cancel"))
+				.modifiable
 				.position(CGPoint(x: 0, y: -32))
 			Button(.init("Select_B"))
+				.modifiable
 				.position(CGPoint(x: 0, y: 64))
 			Button(.init("Cancel_B"))
+				.modifiable
 				.position(CGPoint(x: 0, y: -64))
 			HorizontalSingleBarChart(name: .init("Bar"))
 		}
@@ -107,12 +124,16 @@ Extension is a special widget that cannot generate SKNode.
 ```swift
 let node = Extension {
 		Button(.init("Select"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 32))
 		Button(.init("Cancel"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -32))
 		Button(.init("Select_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: 64))
 		Button(.init("Cancel_B"))
+			.modifiable
 			.position(CGPoint(x: 0, y: -64))
 		HorizontalSingleBarChart(name: .init("Bar"))
 	}
