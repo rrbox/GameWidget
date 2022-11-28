@@ -126,3 +126,20 @@ public extension ModifiableWidget where Context: ZPositionContextProtocol {
         self.modifier(mod: ZPosition(value: value))
     }
 }
+
+public protocol AlphaContextProtocol: ContextProtocol {
+    var alpha: CGFloat { get set }
+}
+
+public struct Alpha<Context: AlphaContextProtocol>: Modifier {
+    var value: CGFloat
+    public func mod(context: inout Context) {
+        context.alpha = self.value
+    }
+}
+
+public extension ModifiableWidget where Context: AlphaContextProtocol {
+    func alpha(_ value: CGFloat) -> Next<Alpha<Context>> {
+        self.modifier(mod: Alpha(value: value))
+    }
+}
