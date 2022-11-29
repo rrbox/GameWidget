@@ -12,10 +12,12 @@ class HorizontalBarChartNode: SKSpriteNode {
     var maxWidth: CGFloat = .zero
     
     @objc func receiveValue(notification: Notification) {
+        self.removeAllActions()
         self.size.width = (notification.userInfo?["value"] as! CGFloat)
     }
     
     @objc func receiveRate(notification: Notification) {
+        self.removeAllActions()
         self.size.width = (notification.userInfo?["rate"] as! CGFloat) * self.maxWidth
     }
     
