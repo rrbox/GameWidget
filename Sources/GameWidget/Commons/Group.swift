@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Group.swift
 //  
 //
 //  Created by rrbox on 2022/07/24.
@@ -183,16 +183,12 @@ struct Single<T: WidgetListElementType>: WidgetList {
 
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
-public struct Extension<Content: WidgetList>: WidgetListElementType, WidgetList {
+public struct Extension<Content: WidgetList>: WidgetListElementType {
     
     var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {
         self.content = content()
-    }
-    
-    public func widgetNodes() -> [SKNode] {
-        self.content.widgetNodes()
     }
     
     public func addTo(parent list: inout [SKNode]) {
