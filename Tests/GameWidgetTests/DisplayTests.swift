@@ -6,7 +6,10 @@
 //
 
 import XCTest
+import GameWidget
 
 final class DisplayTests: XCTestCase {
-    
+    func testDisplayGenerate() {
+        
+    }
 }

@@ -9,21 +9,6 @@ import XCTest
 import SpriteKit
 import GameWidget
 
-struct TextNode: Widget {
-    let value: String
-    
-    typealias Context = Never
-    func node(context: Never) -> SKNode {
-        
-    }
-    
-    func node() -> SKNode {
-        let node = SKNode()
-        node.name = self.value
-        return node
-    }
-}
-
 final class GroupTest: XCTestCase {
     func generateNodesNameReduced<T: WidgetList>(@GroupBuilder _ list: () -> T) -> String {
         list().widgetNodes().reduce(into: "") { partialResult, node in
