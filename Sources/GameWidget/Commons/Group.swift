@@ -14,7 +14,7 @@ import SpriteKit
         Single(widget: c0)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget>(_ c0: C0, _ c1: C1) -> some WidgetList{
+    public static func buildBlock<C0: Widget, C1: Widget>(_ c0: C0, _ c1: C1) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
     }
