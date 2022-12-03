@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Display.swift
 //  
 //
 //  Created by rrbox on 2022/07/24.
@@ -69,21 +69,11 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
 
 /// Widget のレイアウトの起点. place メソッドチェーンで無制限に Widget を配置できます.
 /// - note: 一回の place メソッドで配置可能な widget の数は 10 個までです.
-public struct Display: Widget {
-    public typealias Context = Never
-    
+public struct Display {
     public init() {}
     
     public func place<T: WidgetList>(@GroupBuilder block: () -> T) -> SingleWidgetDisplay<T> {
         SingleWidgetDisplay(widgetList: block())
-    }
-    
-    public func node(context: Never) -> SKNode {
-        
-    }
-    
-    public func node() -> SKNode {
-        fatalError("display has no widget")
     }
     
 }
