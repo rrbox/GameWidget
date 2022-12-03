@@ -9,19 +9,31 @@
 import SpriteKit
 import GameplayKit
 
-public protocol Widget {
-    func node(context: Context) -> SKNode
-    func node() -> SKNode
-    func addTo(parent list: inout [SKNode])
-    
+public protocol ContextNodeGenerator {
     associatedtype Context: ContextProtocol
+    func node(context: Context) -> SKNode
 }
 
-public extension Widget {
+public protocol VoidNodeGenerator {
+    func node() -> SKNode
+}
+
+public protocol WidgetListElementType {
+    func addTo(parent list: inout [SKNode])
+}
+
+public protocol Widget: ContextNodeGenerator, VoidNodeGenerator, WidgetListElementType {
+    
+}
+
+
+public extension WidgetListElementType where Self: VoidNodeGenerator {
     func addTo(parent list: inout [SKNode]) {
         list.append(self.node())
     }
-    
+}
+
+public extension VoidNodeGenerator where Self: ContextNodeGenerator {
     func node() -> SKNode {
         self.node(context: Context())
     }
