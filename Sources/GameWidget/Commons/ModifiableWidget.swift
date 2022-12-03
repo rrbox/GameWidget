@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public struct ModifiableWidget<Body: Widget, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
+public struct ModifiableWidget<Body: ContextNodeGenerator, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
     public func node(context: Body.Context) -> SKNode {
         fatalError("\(context)")
     }
@@ -36,7 +36,7 @@ public struct Empty<Context: ContextProtocol>: Modifier {
     
 }
 
-public extension Widget {
+public extension ContextNodeGenerator {
     typealias Modifiable = ModifiableWidget<Self, SingleModifierBuilder<Empty<Context>>>
     
     var modifiable: Modifiable {
