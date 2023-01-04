@@ -20,7 +20,7 @@ public protocol WidgetListElementType {
     func addTo(parent list: inout [SKNode])
 }
 
-public protocol Widget: ContextPresenter, ParameterLessNodeGenerator, WidgetListElementType {
+public protocol Widget: ParameterLessNodeGenerator, WidgetListElementType {
     
 }
 
