@@ -5,12 +5,18 @@
 //  Created by rrbox on 2022/10/29.
 //
 
-public protocol ContextProtocol {
+public protocol WidgetContextType {
+    
+}
+
+public protocol ParameterLessGeneratable {
     init()
 }
 
-extension Never: ContextProtocol {
-    public init() {
-        fatalError()
-    }
+public protocol ContextProtocol: WidgetContextType, ParameterLessGeneratable {
+    
+}
+
+extension Never: WidgetContextType {
+    
 }

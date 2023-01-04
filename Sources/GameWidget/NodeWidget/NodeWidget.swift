@@ -11,8 +11,7 @@ import SpriteKit
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
 public struct Node<Content: WidgetList>: Widget, WidgetList {
     public typealias Context = NodeContext
-    public
-    var content: Content
+    public var content: Content
     
     public init(@GroupBuilder _ content: () -> Content) {
         self.content = content()
