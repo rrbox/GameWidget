@@ -25,7 +25,7 @@ public struct Button {
     
 }
 
-extension Button: Widget {
+extension Button: Widget, ContextPresenter {
     public typealias Context = ButtonContext
     
     public func node(context: ButtonContext) -> SKNode {

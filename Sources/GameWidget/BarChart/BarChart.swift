@@ -36,7 +36,7 @@ public struct HorizontalSingleBarChart {
     
 }
 
-extension HorizontalSingleBarChart: Widget {
+extension HorizontalSingleBarChart: Widget, ContextPresenter {
     public typealias Context = HorizontalSingleBarChartContext
     
     public func node(context: HorizontalSingleBarChartContext) -> SKNode {

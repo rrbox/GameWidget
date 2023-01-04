@@ -9,7 +9,7 @@ import SpriteKit
 
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
 /// - note: 数値をもつため, 40バイトのメモリを必要とします.
-public struct Node<Content: WidgetList>: Widget, WidgetList {
+public struct Node<Content: WidgetList>: Widget, ContextPresenter, WidgetList {
     public typealias Context = NodeContext
     public var content: Content
     
