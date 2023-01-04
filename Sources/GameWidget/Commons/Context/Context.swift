@@ -16,7 +16,3 @@ public protocol ParameterLessGeneratable {
 public protocol ContextProtocol: WidgetContextType, ParameterLessGeneratable {
     
 }
-
-extension Never: WidgetContextType {
-    
-}

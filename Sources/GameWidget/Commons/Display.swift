@@ -9,7 +9,6 @@ import SpriteKit
 
 /// SingleWidgetDisplay の place により生成され, 二つの WidgetList(一方は Display)を保持します.
 public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList {
-    public typealias Context = Never
     
     var first: T
     var second: U
@@ -20,10 +19,6 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
     
     public func widgetNodes() -> [SKNode] {
         self.first.widgetNodes() + self.second.widgetNodes()
-    }
-    
-    public func node(context: Never) -> SKNode {
-        
     }
     
     public func node() -> SKNode {
@@ -41,7 +36,6 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
 /// 一つの widget から RecursiveDisplay を生成するためのラッパー.
 /// Display の place により生成され, 一つの WidgetList を保持します.
 public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
-    public typealias Context = Never
     
     var widgetList: T
     
@@ -51,10 +45,6 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
     
     public func widgetNodes() -> [SKNode] {
         self.widgetList.widgetNodes()
-    }
-    
-    public func node(context: Never) -> SKNode {
-        
     }
     
     public func node() -> SKNode {
