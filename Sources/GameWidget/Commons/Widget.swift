@@ -19,7 +19,7 @@ public protocol ParameterLessNodeGenerator {
 }
 
 public protocol WidgetListElementType {
-    func addTo(parent list: inout [SKNode])
+    func addTo(buffer: inout [SKNode])
 }
 
 public protocol Widget: ParameterLessNodeGenerator, WidgetListElementType {
@@ -27,8 +27,8 @@ public protocol Widget: ParameterLessNodeGenerator, WidgetListElementType {
 }
 
 public extension WidgetListElementType where Self: ParameterLessNodeGenerator {
-    func addTo(parent list: inout [SKNode]) {
-        list.append(self.node())
+    func addTo(buffer: inout [SKNode]) {
+        buffer.append(self.node())
     }
 }
 
