@@ -1,5 +1,5 @@
 //
-//  BarChart.swift
+//  Gauge.swift
 //
 //
 //  Created by rrbox on 2022/06/07.
