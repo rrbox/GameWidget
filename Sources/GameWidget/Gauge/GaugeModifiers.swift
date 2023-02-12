@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public struct HorizontalSingleBarChartContext:
+public struct GaugeContext:
     PositionContextProtocol,
     ColorizableContextProtocol,
     AlphaContextProtocol,
@@ -21,63 +21,63 @@ public struct HorizontalSingleBarChartContext:
     public var zPosition: CGFloat = .zero
     var width = CGFloat(10)
     var length = CGFloat(100)
-    var alignment = HorizontalBarChartAlignmentMode.right
+    var alignment = GaugeAlignmentMode.right
     var backgroundColor: SKColor?
 }
 
-public enum HorizontalSingleBarChartModiifers {
+public enum GaugeModiifers {
     public struct Width: Modifier {
-        public typealias Context = HorizontalSingleBarChartContext
+        public typealias Context = GaugeContext
         var value: CGFloat
         
-        public func mod(context: inout HorizontalSingleBarChartContext) {
+        public func mod(context: inout GaugeContext) {
             context.width = self.value
         }
     }
     
     public struct Length: Modifier {
-        public typealias Context = HorizontalSingleBarChartContext
+        public typealias Context = GaugeContext
         var value: CGFloat
         
-        public func mod(context: inout HorizontalSingleBarChartContext) {
+        public func mod(context: inout GaugeContext) {
             context.length = self.value
         }
     }
     
     public struct Alignment: Modifier {
-        public typealias Context = HorizontalSingleBarChartContext
-        var value: HorizontalBarChartAlignmentMode
+        public typealias Context = GaugeContext
+        var value: GaugeAlignmentMode
         
-        public func mod(context: inout HorizontalSingleBarChartContext) {
+        public func mod(context: inout GaugeContext) {
             context.alignment = self.value
         }
     }
     
     public struct BackgroundColor: Modifier {
-        public typealias Context = HorizontalSingleBarChartContext
+        public typealias Context = GaugeContext
         var value: SKColor
         
-        public func mod(context: inout HorizontalSingleBarChartContext) {
+        public func mod(context: inout GaugeContext) {
             context.backgroundColor = self.value
         }
     }
 }
 
-public extension ModifiableWidget where Context == HorizontalSingleBarChartContext {
-    func width(_ value: CGFloat) -> Next<HorizontalSingleBarChartModiifers.Width> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.Width(value: value))
+public extension ModifiableWidget where Context == GaugeContext {
+    func width(_ value: CGFloat) -> Next<GaugeModiifers.Width> {
+        self.modifier(mod: GaugeModiifers.Width(value: value))
     }
     
     
-    func length(_ value: CGFloat) -> Next<HorizontalSingleBarChartModiifers.Length> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.Length(value: value))
+    func length(_ value: CGFloat) -> Next<GaugeModiifers.Length> {
+        self.modifier(mod: GaugeModiifers.Length(value: value))
     }
     
-    func alignment(_ value: HorizontalBarChartAlignmentMode) -> Next<HorizontalSingleBarChartModiifers.Alignment> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.Alignment(value: value))
+    func alignment(_ value: GaugeAlignmentMode) -> Next<GaugeModiifers.Alignment> {
+        self.modifier(mod: GaugeModiifers.Alignment(value: value))
     }
     
-    func backgroundColor(_ value: SKColor) -> Next<HorizontalSingleBarChartModiifers.BackgroundColor> {
-        self.modifier(mod: HorizontalSingleBarChartModiifers.BackgroundColor(value: value))
+    func backgroundColor(_ value: SKColor) -> Next<GaugeModiifers.BackgroundColor> {
+        self.modifier(mod: GaugeModiifers.BackgroundColor(value: value))
     }
 }

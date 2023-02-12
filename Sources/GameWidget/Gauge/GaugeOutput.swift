@@ -8,39 +8,39 @@
 import Foundation
 
 extension Notification.Name {
-    static func barChartPostRate(id: HorizontalSingleBarChart.ID) -> Self {
-        .init("barChartPostRate_\(id)")
+    static func gaugePostRate(id: Gauge.ID) -> Self {
+        .init("gaugePostRate_\(id)")
     }
-    static func barChartPostValue(id: HorizontalSingleBarChart.ID) -> Self {
-        .init("barChartPostValue_\(id)")
+    static func gaugePostValue(id: Gauge.ID) -> Self {
+        .init("gaugePostValue_\(id)")
     }
-    static func barChartPostRateWithAnimation(id: HorizontalSingleBarChart.ID) -> Self {
-        .init("barChartPostRateWithAnimation_\(id)")
+    static func gaugePostRateWithAnimation(id: Gauge.ID) -> Self {
+        .init("gaugePostRateWithAnimation_\(id)")
     }
-    static func barChartPostValueWithAnimation(id: HorizontalSingleBarChart.ID) -> Self {
-        .init("barChartPostValueWithAnimation_\(id)")
+    static func gaugePostValueWithAnimation(id: Gauge.ID) -> Self {
+        .init("gaugeValueWithAnimation_\(id)")
     }
 }
 
-public protocol SingleBarChartDrawable {
+public protocol GaugeDrawable {
     
-    func send(value: CGFloat, id: HorizontalSingleBarChart.ID)
-    func send(rate: CGFloat, id: HorizontalSingleBarChart.ID)
+    func send(value: CGFloat, id: Gauge.ID)
+    func send(rate: CGFloat, id: Gauge.ID)
     
 }
 
-public extension SingleBarChartDrawable {
-    func send(value: CGFloat, id: HorizontalSingleBarChart.ID) {
-        HorizontalBarChartNode.center.post(name: .barChartPostValue(id: id), object: nil, userInfo: ["value": value])
+public extension GaugeDrawable {
+    func send(value: CGFloat, id: Gauge.ID) {
+        GaugeNode.center.post(name: .gaugePostValue(id: id), object: nil, userInfo: ["value": value])
     }
-    func send(rate: CGFloat, id: HorizontalSingleBarChart.ID) {
-        HorizontalBarChartNode.center.post(name: .barChartPostRate(id: id), object: nil, userInfo: ["rate": rate])
+    func send(rate: CGFloat, id: Gauge.ID) {
+        GaugeNode.center.post(name: .gaugePostRate(id: id), object: nil, userInfo: ["rate": rate])
     }
     
-    func sendForAnimation(value: CGFloat, id: HorizontalSingleBarChart.ID) {
-        HorizontalBarChartNode.center.post(name: .barChartPostValueWithAnimation(id: id), object: nil, userInfo: ["value": value])
+    func sendForAnimation(value: CGFloat, id: Gauge.ID) {
+        GaugeNode.center.post(name: .gaugePostValueWithAnimation(id: id), object: nil, userInfo: ["value": value])
     }
-    func sendForAnimation(rate: CGFloat, id: HorizontalSingleBarChart.ID) {
-        HorizontalBarChartNode.center.post(name: .barChartPostRateWithAnimation(id: id), object: nil, userInfo: ["rate": rate])
+    func sendForAnimation(rate: CGFloat, id: Gauge.ID) {
+        GaugeNode.center.post(name: .gaugePostRateWithAnimation(id: id), object: nil, userInfo: ["rate": rate])
     }
 }

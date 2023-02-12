@@ -11,7 +11,7 @@ import SpriteKit
 
 final class BarChartTests: XCTestCase {
     func testModifiers() {
-        let barChart = HorizontalSingleBarChart(name: .init("test"))
+        let barChart = Gauge(name: .init("test"))
             .modifiable
             .position(CGPoint(x: 1, y: 1))
             .color(.red)
