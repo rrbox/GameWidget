@@ -3,7 +3,7 @@ import XCTest
 
 final class NodeTests: XCTestCase {
     func testModifiers() throws {
-        let node = Node {
+        let node = NodeWidget {
             Button(.init("test"))
         }
             .modifiable
