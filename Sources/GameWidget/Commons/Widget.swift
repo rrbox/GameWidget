@@ -9,11 +9,13 @@ import SpriteKit
 
 public protocol ContextPresenter {
     associatedtype Context: WidgetContextType
-    func node(context: Context) -> SKNode
+    associatedtype Node: SKNode
+    func node(context: Context) -> Node
 }
 
 public protocol ParameterLessNodeGenerator {
-    func node() -> SKNode
+    associatedtype Node: SKNode
+    func node() -> Node
 }
 
 public protocol WidgetListElementType {
@@ -31,7 +33,7 @@ public extension WidgetListElementType where Self: ParameterLessNodeGenerator {
 }
 
 public extension ParameterLessNodeGenerator where Self: ContextPresenter, Context: ParameterLessGeneratable {
-    func node() -> SKNode {
+    func node() -> Node {
         self.node(context: Context())
     }
 }
