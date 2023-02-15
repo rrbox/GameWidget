@@ -21,7 +21,7 @@ final class BarChartTests: XCTestCase {
             .backgroundColor(.blue)
             .alpha(0.5)
             .zPosition(2)
-            .node()
+            .createModels().0
         
         guard let barChart = barChart as? SKSpriteNode,
               let background = barChart.children[0] as? SKSpriteNode else {

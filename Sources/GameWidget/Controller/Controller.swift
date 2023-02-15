@@ -100,7 +100,7 @@ class ControllerAreaNode: SKSpriteNode {
     
 }
 
-public struct ControllerArea: Widget, ContextPresenter {
+public struct ControllerArea: Widget, ContextPresentPlugIn {
     public typealias Context = ControllerContext
     
     var id: ControllerData.Name

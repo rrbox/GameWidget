@@ -6,7 +6,7 @@
 
 ### Widget type
 
-- ``Node``
+- ``NodeWidget``
 
 ### modifiers
 

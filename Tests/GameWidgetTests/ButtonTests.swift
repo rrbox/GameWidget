@@ -18,7 +18,7 @@ final class ButtonTests: XCTestCase {
             .text("test_2")
             .zPosition(1)
             .actionType(.alpha)
-            .node()
+            .createModels().0
         
         
         

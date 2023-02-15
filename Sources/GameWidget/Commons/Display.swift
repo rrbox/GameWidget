@@ -17,20 +17,19 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
         .init(first: self, second: block())
     }
     
-    public func widgetNodes() -> [SKNode] {
-        self.first.widgetNodes() + self.second.widgetNodes()
+    public func widgetNodes(center: NotificationCenter) -> [SKNode] {
+        self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center)
     }
     
     public func node() -> SKNode {
-        let result = SKNode()
-        
-        for node in self.first.widgetNodes() + self.second.widgetNodes() {
-            result.addChild(node)
-        }
-        
-        return result
+        SKNode()
     }
     
+    public func combine(node: SKNode, center: NotificationCenter) {
+        for n in self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center) {
+            node.addChild(n)
+        }
+    }
 }
 
 /// 一つの widget から RecursiveDisplay を生成するためのラッパー.
@@ -43,16 +42,20 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
         RecursiveDisplay(first: self, second: block())
     }
     
-    public func widgetNodes() -> [SKNode] {
-        self.widgetList.widgetNodes()
+    public func widgetNodes(center: NotificationCenter) -> [SKNode] {
+        self.widgetList.widgetNodes(center: center)
     }
     
     public func node() -> SKNode {
         let result = SKNode()
-        for node in self.widgetList.widgetNodes() {
-            result.addChild(node)
-        }
+       
         return result
+    }
+    
+    public func combine(node: SKNode, center: NotificationCenter) {
+        for n in self.widgetList.widgetNodes(center: center) {
+            node.addChild(n)
+        }
     }
     
 }

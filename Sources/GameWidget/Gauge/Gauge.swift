@@ -36,7 +36,7 @@ public struct Gauge {
     
 }
 
-extension Gauge: Widget, ContextPresenter {
+extension Gauge: Widget, ContextPresentPlugIn {
     public typealias Context = GaugeContext
     
     public func node(context: GaugeContext) -> SKNode {

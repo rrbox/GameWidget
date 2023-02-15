@@ -10,9 +10,12 @@ import GameplayKit
 final private class UserInterfaceBaseNode: GKSKNodeComponent {}
 
 final public class UserInterfaceDisplay<T: Widget>: GKSKNodeComponent {
+    let center: NotificationCenter
     
     init(_ display: T) {
-        super.init(node: display.node())
+        let (node, center) = display.createModels()
+        self.center = center
+        super.init(node: node)
     }
     
     required init?(coder: NSCoder) {

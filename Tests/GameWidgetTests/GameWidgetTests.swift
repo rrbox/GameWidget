@@ -11,7 +11,7 @@ final class NodeTests: XCTestCase {
             .scale(2)
             .zRotation(2)
             .zPosition(1)
-            .node()
+            .createModels().0
             
         XCTAssertEqual(node.position, CGPoint(x: 1, y: 1))
         XCTAssertEqual(node.xScale, 2)

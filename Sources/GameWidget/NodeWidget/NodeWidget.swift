@@ -8,7 +8,7 @@
 import SpriteKit
 
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
-public struct NodeWidget<Content: WidgetList>: Widget, ContextPresenter {
+public struct NodeWidget<Content: WidgetList>: Widget, ContextPresentPlugIn {
     public typealias Context = NodeContext
     public var content: Content
     
@@ -25,10 +25,13 @@ public struct NodeWidget<Content: WidgetList>: Widget, ContextPresenter {
         result.yScale = context.yScale
         result.zPosition = context.zPosition
         
-        for i in self.content.widgetNodes() {
-            result.addChild(i)
-        }
         return result
+    }
+    
+    public func combine(node: SKNode, center: NotificationCenter) {
+        for i in self.content.widgetNodes(center: center) {
+            node.addChild(i)
+        }
     }
     
 }

@@ -15,7 +15,7 @@ final class ControllerTests: XCTestCase {
             .modifiable
             .position(CGPoint(x: 1, y: 1))
             .size(CGSize(width: 32, height: 32))
-            .node()
+            .createModels().0
         
         guard let controller = controller as? SKSpriteNode else {
             XCTFail()
