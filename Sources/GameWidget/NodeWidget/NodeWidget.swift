@@ -16,7 +16,7 @@ public struct NodeWidget<Content: WidgetList>: Widget, ContextPresentPlugIn {
         self.content = content()
     }
     
-    public func node(context: NodeContext) -> SKNode {
+    public func node(applying context: NodeContext) -> SKNode {
         let result = SKNode()
         
         result.position = context.position

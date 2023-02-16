@@ -39,7 +39,7 @@ public struct Gauge {
 extension Gauge: Widget, ContextPresentPlugIn {
     public typealias Context = GaugeContext
     
-    public func node(context: GaugeContext) -> SKNode {
+    public func node(applying context: GaugeContext) -> SKNode {
         
         let gauge = GaugeNode(color: context.color, size: CGSize(width: context.length, height: context.width))
         

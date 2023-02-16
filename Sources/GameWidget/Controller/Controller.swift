@@ -109,7 +109,7 @@ public struct ControllerArea: Widget, ContextPresentPlugIn {
         self.id = id
     }
     
-    public func node(context: ControllerContext) -> SKNode {
+    public func node(applying context: ControllerContext) -> SKNode {
         let result = ControllerAreaNode(color: .black, size: context.size)
         result.id = self.id
         ControllerData.inputs.value[self.id] = ControllerData.Input(weight: 0, direction: [])

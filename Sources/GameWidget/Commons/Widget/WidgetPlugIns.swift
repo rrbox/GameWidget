@@ -11,5 +11,5 @@ import SpriteKit
 public protocol ContextPresentPlugIn {
     associatedtype Context: WidgetContextType
     associatedtype Node: SKNode
-    func node(context: Context) -> Node
+    func node(applying context: Context) -> Node
 }

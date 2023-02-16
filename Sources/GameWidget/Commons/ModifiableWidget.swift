@@ -12,7 +12,7 @@ public struct ModifiableWidget<Body: ContextPresentPlugIn, Builder: ContextBuild
     public func node() -> SKNode {
         var context = Context()
         self.builder.mod(context: &context)
-        return body.node(context: context)
+        return body.node(applying: context)
     }
     
     public typealias Context = Body.Context

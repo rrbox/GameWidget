@@ -7,6 +7,6 @@
 
 public extension NodeGenerator where Self: ContextPresentPlugIn, Context: ParameterLessGeneratable {
     func node() -> Node {
-        self.node(context: Context())
+        self.node(applying: Context())
     }
 }
