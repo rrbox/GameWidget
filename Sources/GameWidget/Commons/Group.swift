@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Group.swift
 //  
 //
 //  Created by rrbox on 2022/07/24.
@@ -10,29 +10,39 @@ import SpriteKit
 
 @resultBuilder public struct GroupBuilder {
     
-    public static func buildBlock<C0: Widget>(_ c0: C0) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType>(_ c0: C0) -> some WidgetList {
         Single(widget: c0)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget>(_ c0: C0, _ c1: C1) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType>(_ c0: C0, _ c1: C1) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget>(_ c0: C0, _ c1: C1, _ c2: C2) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
             .append(c3)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -40,7 +50,12 @@ import SpriteKit
             .append(c4)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget, C5: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType,
+                                  C5: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -49,7 +64,13 @@ import SpriteKit
             .append(c5)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget, C5: Widget, C6: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType,
+                                  C5: WidgetListElementType,
+                                  C6: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -59,7 +80,14 @@ import SpriteKit
             .append(c6)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget, C5: Widget, C6: Widget, C7: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType,
+                                  C5: WidgetListElementType,
+                                  C6: WidgetListElementType,
+                                  C7: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -70,7 +98,15 @@ import SpriteKit
             .append(c7)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget, C5: Widget, C6: Widget, C7: Widget, C8: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType,
+                                  C5: WidgetListElementType,
+                                  C6: WidgetListElementType,
+                                  C7: WidgetListElementType,
+                                  C8: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -82,7 +118,16 @@ import SpriteKit
             .append(c8)
     }
     
-    public static func buildBlock<C0: Widget, C1: Widget, C2: Widget, C3: Widget, C4: Widget, C5: Widget, C6: Widget, C7: Widget, C8: Widget, C9: Widget>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8, _ c9: C9) -> some WidgetList {
+    public static func buildBlock<C0: WidgetListElementType,
+                                  C1: WidgetListElementType,
+                                  C2: WidgetListElementType,
+                                  C3: WidgetListElementType,
+                                  C4: WidgetListElementType,
+                                  C5: WidgetListElementType,
+                                  C6: WidgetListElementType,
+                                  C7: WidgetListElementType,
+                                  C8: WidgetListElementType,
+                                  C9: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8, _ c9: C9) -> some WidgetList {
         Single(widget: c0)
             .append(c1)
             .append(c2)
@@ -102,35 +147,35 @@ public protocol WidgetList {
 }
 
 /// 再帰可能. widget のペアです. オーバーヘッドはありません.
-public struct RecursiveGroup<T: WidgetList, U: Widget>: WidgetList {
+public struct RecursiveGroup<T: WidgetList, U: WidgetListElementType>: WidgetList {
     
     var first: T
     var second: U
     
-    func append<V: Widget>(_ newWidget: V) -> RecursiveGroup<Self, V> {
+    func append<V: WidgetListElementType>(_ newWidget: V) -> RecursiveGroup<Self, V> {
         .init(first: self, second: newWidget)
     }
     
     public func widgetNodes() -> [SKNode] {
         var result = self.first.widgetNodes()
-        self.second.addTo(parent: &result)
+        self.second.addTo(buffer: &result)
         return result
     }
     
 }
 
 // 一つの widget から RecursiveGroup を生成するためのラッパー.
-struct Single<T: Widget>: WidgetList {
+struct Single<T: WidgetListElementType>: WidgetList {
     
     var widget: T
     
-    func append<U: Widget>(_ newWidget: U) -> RecursiveGroup<Self, U> {
+    func append<U: WidgetListElementType>(_ newWidget: U) -> RecursiveGroup<Self, U> {
         .init(first: self, second: newWidget)
     }
     
     func widgetNodes() -> [SKNode] {
         var result = [SKNode]()
-        self.widget.addTo(parent: &result)
+        self.widget.addTo(buffer: &result)
         return result
     }
     
@@ -138,8 +183,7 @@ struct Single<T: Widget>: WidgetList {
 
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
-public struct Extension<Content: WidgetList>: Widget, WidgetList {
-    public typealias Context = Never
+public struct Extension<Content: WidgetList>: WidgetListElementType {
     
     var content: Content
     
@@ -147,21 +191,9 @@ public struct Extension<Content: WidgetList>: Widget, WidgetList {
         self.content = content()
     }
     
-    public func widgetNodes() -> [SKNode] {
-        self.content.widgetNodes()
-    }
-    
-    public func node(context: Never) -> SKNode {
-        
-    }
-    
-    public func node() -> SKNode {
-        fatalError("Extension は node を生成しません.")
-    }
-    
-    public func addTo(parent list: inout [SKNode]) {
+    public func addTo(buffer: inout [SKNode]) {
         for node in self.content.widgetNodes() {
-            list.append(node)
+            buffer.append(node)
         }
     }
     

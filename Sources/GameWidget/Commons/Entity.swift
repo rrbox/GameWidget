@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Entity.swift
+//
 //
 //  Created by rrbox on 2022/06/18.
 //

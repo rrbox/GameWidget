@@ -1,5 +1,5 @@
 //
-//  BarChart.swift
+//  Gauge.swift
 //
 //
 //  Created by rrbox on 2022/06/07.
@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public enum HorizontalBarChartAlignmentMode {
+public enum GaugeAlignmentMode {
     case left, right, center
     static let anchorPointMap: [Self: CGPoint] = [
         .left: CGPoint(x: 0, y: 0.5),
@@ -19,7 +19,7 @@ public enum HorizontalBarChartAlignmentMode {
     }
 }
 
-public struct HorizontalSingleBarChart {
+public struct Gauge {
     
     public struct ID: Equatable {
         let id: String
@@ -36,28 +36,28 @@ public struct HorizontalSingleBarChart {
     
 }
 
-extension HorizontalSingleBarChart: Widget {
-    public typealias Context = HorizontalSingleBarChartContext
+extension Gauge: Widget, ContextPresentPlugIn {
+    public typealias Context = GaugeContext
     
-    public func node(context: HorizontalSingleBarChartContext) -> SKNode {
+    public func node(applying context: GaugeContext) -> SKNode {
         
-        let bar = HorizontalBarChartNode(color: context.color, size: CGSize(width: context.length, height: context.width))
+        let gauge = GaugeNode(color: context.color, size: CGSize(width: context.length, height: context.width))
         
-        bar.alpha = context.alpha
-        bar.maxWidth = context.length
-        bar.registerTo(center: HorizontalBarChartNode.center, id: self.name)
-        bar.anchorPoint = context.alignment.anchorPoint()
-        bar.position = context.position
-        bar.zPosition = context.zPosition
+        gauge.alpha = context.alpha
+        gauge.maxWidth = context.length
+        gauge.registerTo(center: GaugeNode.center, id: self.name)
+        gauge.anchorPoint = context.alignment.anchorPoint()
+        gauge.position = context.position
+        gauge.zPosition = context.zPosition
         
         if let backgroundColor = context.backgroundColor {
             let backgound = SKSpriteNode(color: backgroundColor, size: CGSize(width: context.length, height: context.width))
             backgound.anchorPoint = context.alignment.anchorPoint()
             backgound.zPosition = context.zPosition - 0.01
-            bar.addChild(backgound)
+            gauge.addChild(backgound)
         }
         
-        return bar
+        return gauge
     }
     
 }
