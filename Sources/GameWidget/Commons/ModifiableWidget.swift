@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-public struct ModifiableWidget<Body: ContextPresenter, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
+public struct ModifiableWidget<Body: ContextPresentPlugIn, Builder: ContextBuilder>: Widget where Body.Context == Builder.Mod.Context {
     
     public func node() -> SKNode {
         var context = Context()
@@ -33,7 +33,7 @@ public struct Empty<Context: ContextProtocol>: Modifier {
     
 }
 
-public extension Widget where Self: ContextPresenter, Context: ContextProtocol {
+public extension Widget where Self: ContextPresentPlugIn, Context: ContextProtocol {
     typealias Modifiable = ModifiableWidget<Self, SingleModifierBuilder<Empty<Context>>>
     
     var modifiable: Modifiable {

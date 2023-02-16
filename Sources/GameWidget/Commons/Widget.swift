@@ -7,13 +7,13 @@
 
 import SpriteKit
 
-public protocol ContextPresenter {
+public protocol ContextPresentPlugIn {
     associatedtype Context: WidgetContextType
     associatedtype Node: SKNode
     func node(context: Context) -> Node
 }
 
-public protocol ParameterLessNodeGenerator {
+public protocol NodeGenerator {
     associatedtype Node: SKNode
     func node() -> Node
 }
@@ -22,17 +22,17 @@ public protocol WidgetListElementType {
     func addTo(buffer: inout [SKNode])
 }
 
-public protocol Widget: ParameterLessNodeGenerator, WidgetListElementType {
+public protocol Widget: NodeGenerator, WidgetListElementType {
     
 }
 
-public extension WidgetListElementType where Self: ParameterLessNodeGenerator {
+public extension WidgetListElementType where Self: NodeGenerator {
     func addTo(buffer: inout [SKNode]) {
         buffer.append(self.node())
     }
 }
 
-public extension ParameterLessNodeGenerator where Self: ContextPresenter, Context: ParameterLessGeneratable {
+public extension NodeGenerator where Self: ContextPresentPlugIn, Context: ParameterLessGeneratable {
     func node() -> Node {
         self.node(context: Context())
     }
