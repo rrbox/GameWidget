@@ -26,6 +26,7 @@ public struct Button {
 }
 
 extension Button: Widget, ContextPresentPlugIn {
+    
     public typealias Context = ButtonContext
     
     public func node(applying context: ButtonContext) -> SKNode {

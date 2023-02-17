@@ -20,9 +20,3 @@ public protocol WidgetListElementType {
 public protocol Widget: NodeGenerator, WidgetListElementType {
     
 }
-
-public extension WidgetListElementType where Self: NodeGenerator {
-    func addTo(buffer: inout [SKNode]) {
-        buffer.append(self.node())
-    }
-}

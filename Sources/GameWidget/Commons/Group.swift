@@ -158,7 +158,7 @@ public struct RecursiveGroup<T: WidgetList, U: WidgetListElementType>: WidgetLis
     
     public func widgetNodes() -> [SKNode] {
         var result = self.first.widgetNodes()
-        self.second.addTo(buffer: &result)
+        self.second.addTo(buffer: &result, center: <#T##NotificationCenter#>)
         return result
     }
     
@@ -175,7 +175,7 @@ struct Single<T: WidgetListElementType>: WidgetList {
     
     func widgetNodes() -> [SKNode] {
         var result = [SKNode]()
-        self.widget.addTo(buffer: &result)
+        self.widget.addTo(buffer: &result, center: <#T##NotificationCenter#>)
         return result
     }
     
@@ -191,7 +191,7 @@ public struct Extension<Content: WidgetList>: WidgetListElementType {
         self.content = content()
     }
     
-    public func addTo(buffer: inout [SKNode]) {
+    public func addTo(buffer: inout [SKNode], center: NotificationCenter) {
         for node in self.content.widgetNodes() {
             buffer.append(node)
         }
