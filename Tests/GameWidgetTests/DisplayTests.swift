@@ -19,7 +19,7 @@ final class DisplayTests: XCTestCase {
                 TextNode(value: "2")
                 TextNode(value: "3")
             }
-            .node()
+            .createModels().0
         
         XCTAssertEqual(displayNode.children.count, 4)
         XCTAssertEqual(displayNode.children.reduce(into: "", { partialResult, node in
