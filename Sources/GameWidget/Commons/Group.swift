@@ -143,7 +143,7 @@ import SpriteKit
 }
 
 public protocol WidgetList {
-    func widgetNodes() -> [SKNode]
+    func widgetNodes(center: NotificationCenter) -> [SKNode]
 }
 
 /// 再帰可能. widget のペアです. オーバーヘッドはありません.
@@ -156,9 +156,9 @@ public struct RecursiveGroup<T: WidgetList, U: WidgetListElementType>: WidgetLis
         .init(first: self, second: newWidget)
     }
     
-    public func widgetNodes() -> [SKNode] {
-        var result = self.first.widgetNodes()
-        self.second.addTo(buffer: &result, center: <#T##NotificationCenter#>)
+    public func widgetNodes(center: NotificationCenter) -> [SKNode] {
+        var result = self.first.widgetNodes(center: center)
+        self.second.addTo(buffer: &result, center: center)
         return result
     }
     
@@ -173,9 +173,9 @@ struct Single<T: WidgetListElementType>: WidgetList {
         .init(first: self, second: newWidget)
     }
     
-    func widgetNodes() -> [SKNode] {
+    func widgetNodes(center: NotificationCenter) -> [SKNode] {
         var result = [SKNode]()
-        self.widget.addTo(buffer: &result, center: <#T##NotificationCenter#>)
+        self.widget.addTo(buffer: &result, center: center)
         return result
     }
     
@@ -192,7 +192,7 @@ public struct Extension<Content: WidgetList>: WidgetListElementType {
     }
     
     public func addTo(buffer: inout [SKNode], center: NotificationCenter) {
-        for node in self.content.widgetNodes() {
+        for node in self.content.widgetNodes(center: center) {
             buffer.append(node)
         }
     }
