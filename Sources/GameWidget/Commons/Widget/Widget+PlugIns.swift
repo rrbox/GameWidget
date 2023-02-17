@@ -33,3 +33,9 @@ public extension NodeGenerator where Self: ContextPresentPlugIn, Context: Parame
         self.node(applying: Context())
     }
 }
+
+public extension DataOutputPlugIn {
+    func combine(node: Node, center: NotificationCenter) {
+        node.registerTo(center: center, id: self.id)
+    }
+}
