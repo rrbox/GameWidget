@@ -14,7 +14,7 @@ public protocol NodeGenerator {
 }
 
 public protocol WidgetListElementType {
-    func addTo(buffer: inout [SKNode])
+    func addTo(buffer: inout [SKNode], center: NotificationCenter)
 }
 
 public protocol Widget: NodeGenerator, WidgetListElementType {
