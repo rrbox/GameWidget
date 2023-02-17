@@ -10,6 +10,7 @@ import SpriteKit
 public protocol NodeGenerator {
     associatedtype Node: SKNode
     func node() -> Node
+    func combine(node: Node, center: NotificationCenter)
 }
 
 public protocol WidgetListElementType {
