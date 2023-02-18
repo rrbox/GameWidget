@@ -12,8 +12,8 @@ public extension NodeGenerator {
         
     }
     
-    func createModels() -> (Node, NotificationCenter) {
-        let center = NotificationCenter()
+    func createModels() -> (Node, WidgetNotificationSystem) {
+        let center = WidgetNotificationSystem()
         let node = self.node()
         self.combine(node: node, center: center)
         return (node, center)
