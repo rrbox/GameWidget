@@ -11,7 +11,8 @@ import GameWidget
 
 final class GroupTest: XCTestCase {
     func generateNodesNameReduced<T: WidgetList>(@GroupBuilder _ list: () -> T) -> String {
-        list().widgetNodes(center: .default).reduce(into: "") { partialResult, node in
+        let center = WidgetNotificationSystem()
+        return list().widgetNodes(center: center).reduce(into: "") { partialResult, node in
             guard let name = node.name else {
                 XCTFail()
                 return

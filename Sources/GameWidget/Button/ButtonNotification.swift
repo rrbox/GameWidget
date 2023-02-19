@@ -21,13 +21,13 @@ public extension WidgetNotificationSystem {
         self.post(name: .buttonTouchUp, object: nil, userInfo: ["buttonName": button])
     }
     
-    static func touchDownButton(_ button: Button.Role) {
-        WidgetNotificationSystem.activated?.touchDownButton(button)
-    }
-    
-    static func touchUpButton(_ button: Button.Role) {
-        WidgetNotificationSystem.activated?.touchUpButton(button)
-    }
+//    static func touchDownButton(_ button: Button.Role) {
+//        WidgetNotificationSystem.activated?.touchDownButton(button)
+//    }
+//    
+//    static func touchUpButton(_ button: Button.Role) {
+//        WidgetNotificationSystem.activated?.touchUpButton(button)
+//    }
 }
 
 extension Notification.Name {

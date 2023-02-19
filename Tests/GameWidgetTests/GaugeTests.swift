@@ -23,8 +23,7 @@ final class GaugeTests: XCTestCase {
             .zPosition(2)
             .node()
         
-        guard let gauge = gauge as? SKSpriteNode,
-              let background = gauge.children[0] as? SKSpriteNode else {
+        guard let background = gauge.children[0] as? SKSpriteNode else {
             XCTFail()
             return
         }

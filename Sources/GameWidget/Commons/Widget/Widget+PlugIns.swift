@@ -8,7 +8,7 @@
 import SpriteKit
 
 public extension NodeGenerator {
-    func combine(node: Node, center: NotificationCenter) {
+    func combine(node: Node, center: WidgetNotificationSystem) {
         
     }
     
@@ -21,7 +21,7 @@ public extension NodeGenerator {
 }
 
 public extension WidgetListElementType where Self: NodeGenerator {
-    func addTo(buffer: inout [SKNode], center: NotificationCenter) {
+    func addTo(buffer: inout [SKNode], center: WidgetNotificationSystem) {
         let node = self.node()
         self.combine(node: node, center: center)
         buffer.append(node)
@@ -35,7 +35,13 @@ public extension NodeGenerator where Self: ContextPresentPlugIn, Context: Parame
 }
 
 public extension DataOutputPlugIn {
-    func combine(node: Node, center: NotificationCenter) {
+    func combine(node: Node, center: WidgetNotificationSystem) {
         node.registerTo(center: center, id: self.id)
+    }
+}
+
+public extension UserInputPlugIn {
+    func combine(node: Node, center: WidgetNotificationSystem) {
+        node.notificationSystem = center
     }
 }

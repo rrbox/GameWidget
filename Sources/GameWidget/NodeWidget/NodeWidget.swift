@@ -28,7 +28,7 @@ public struct NodeWidget<Content: WidgetList>: Widget, ContextPresentPlugIn {
         return result
     }
     
-    public func combine(node: SKNode, center: NotificationCenter) {
+    public func combine(node: SKNode, center: WidgetNotificationSystem) {
         for i in self.content.widgetNodes(center: center) {
             node.addChild(i)
         }
