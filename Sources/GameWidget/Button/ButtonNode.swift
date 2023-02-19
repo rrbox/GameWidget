@@ -63,8 +63,7 @@ final class ButtonSensor: SKSpriteNode {
         self.parent?.removeAllActions()
         self.parent?.run(self.selectAction!)
         self.isSelected = true
-        //        UserInterfaceSystem.activated?.center.post(name: .buttonTouchUp, object: nil, userInfo: ["buttonName": self.roleName!])
-        ButtonNotificationCenter.touchDownButton(self.roleName!)
+        WidgetNotificationSystem.touchDownButton(self.roleName!)
     }
     
     func touchMoved(toPoint pos: CGPoint) {
@@ -82,8 +81,7 @@ final class ButtonSensor: SKSpriteNode {
                 self.selectEndAction!,
                 SKAction.run {
                     self.isSelected = false
-                    //                    UserInterfaceSystem.activated?.center.post(name: .buttonTouchUp, object: nil, userInfo: ["buttonName": self.roleName!])
-                    ButtonNotificationCenter.touchUpButton(self.roleName!)
+                    WidgetNotificationSystem.touchUpButton(self.roleName!)
                 }
             ]))
         }
