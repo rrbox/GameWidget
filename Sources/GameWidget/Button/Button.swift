@@ -25,12 +25,12 @@ public struct Button {
     
 }
 
-extension Button: Widget, ContextPresentPlugIn {
+extension Button: Widget, ContextPresentPlugIn, UserInputPlugIn {
     
     public typealias Context = ButtonContext
     
-    public func node(applying context: ButtonContext) -> SKNode {
-        let result = SKNode()
+    public func node(applying context: ButtonContext) -> ButtonNode {
+        let result = ButtonNode()
         
         let label = SKLabelNode(text: context.text ?? "\(self.name)")
         label.verticalAlignmentMode = .center

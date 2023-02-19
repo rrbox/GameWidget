@@ -22,25 +22,26 @@ extension Notification.Name {
     }
 }
 
-public protocol GaugeDrawable {
+public protocol GaugeDrawable: NotificationPublisher {
     
     func send(value: CGFloat, id: Gauge.ID)
     func send(rate: CGFloat, id: Gauge.ID)
+    
     
 }
 
 public extension GaugeDrawable {
     func send(value: CGFloat, id: Gauge.ID) {
-        WidgetNotificationSystem.activated?.post(name: .gaugePostValue(id: id), object: nil, userInfo: ["value": value])
+        self.notificationSystem?.post(name: .gaugePostValue(id: id), object: nil, userInfo: ["value": value])
     }
     func send(rate: CGFloat, id: Gauge.ID) {
-        WidgetNotificationSystem.activated?.post(name: .gaugePostRate(id: id), object: nil, userInfo: ["rate": rate])
+        self.notificationSystem?.post(name: .gaugePostRate(id: id), object: nil, userInfo: ["rate": rate])
     }
     
     func sendForAnimation(value: CGFloat, id: Gauge.ID) {
-        WidgetNotificationSystem.activated?.post(name: .gaugePostValueWithAnimation(id: id), object: nil, userInfo: ["value": value])
+        self.notificationSystem?.post(name: .gaugePostValueWithAnimation(id: id), object: nil, userInfo: ["value": value])
     }
     func sendForAnimation(rate: CGFloat, id: Gauge.ID) {
-        WidgetNotificationSystem.activated?.post(name: .gaugePostRateWithAnimation(id: id), object: nil, userInfo: ["rate": rate])
+        self.notificationSystem?.post(name: .gaugePostRateWithAnimation(id: id), object: nil, userInfo: ["rate": rate])
     }
 }

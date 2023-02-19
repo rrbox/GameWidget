@@ -8,9 +8,5 @@
 import Foundation
 
 final public class WidgetNotificationSystem: NotificationCenter {
-    public static weak var activated: WidgetNotificationSystem?
     
-    public func activate() {
-        WidgetNotificationSystem.activated = self
-    }
 }

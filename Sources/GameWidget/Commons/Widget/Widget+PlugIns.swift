@@ -39,3 +39,9 @@ public extension DataOutputPlugIn {
         node.registerTo(center: center, id: self.id)
     }
 }
+
+public extension UserInputPlugIn {
+    func combine(node: Node, center: WidgetNotificationSystem) {
+        node.notificationSystem = center
+    }
+}
