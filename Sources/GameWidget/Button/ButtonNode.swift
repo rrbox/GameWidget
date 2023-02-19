@@ -71,6 +71,7 @@ final class ButtonSensor: SKSpriteNode {
         self.parent?.removeAllActions()
         self.parent?.run(self.selectAction!)
         self.isSelected = true
+        let system = self.buttonNode.notificationSystem
         self.buttonNode.notificationSystem?.touchDownButton(self.roleName!)
     }
     
