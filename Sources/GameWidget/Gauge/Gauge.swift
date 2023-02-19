@@ -19,7 +19,7 @@ public enum GaugeAlignmentMode {
     }
 }
 
-public struct Gauge {
+public struct Gauge: DataOutputPlugIn {
     
     public struct ID: Equatable {
         let id: String
@@ -28,24 +28,23 @@ public struct Gauge {
         }
     }
     
-    public init(name: ID) {
-        self.name = name
+    public init(id: ID) {
+        self.id = id
     }
     
-    var name: ID
+    public var id: GaugeNode.Identifier
     
 }
 
 extension Gauge: Widget, ContextPresentPlugIn {
     public typealias Context = GaugeContext
     
-    public func node(applying context: GaugeContext) -> SKNode {
+    public func node(applying context: GaugeContext) -> GaugeNode {
         
         let gauge = GaugeNode(color: context.color, size: CGSize(width: context.length, height: context.width))
         
         gauge.alpha = context.alpha
         gauge.maxWidth = context.length
-        gauge.registerTo(center: GaugeNode.center, id: self.name)
         gauge.anchorPoint = context.alignment.anchorPoint()
         gauge.position = context.position
         gauge.zPosition = context.zPosition
@@ -58,6 +57,10 @@ extension Gauge: Widget, ContextPresentPlugIn {
         }
         
         return gauge
+    }
+    
+    public func combine(node: GaugeNode, center: NotificationCenter) {
+        node.registerTo(center: center, id: self.id)
     }
     
 }
