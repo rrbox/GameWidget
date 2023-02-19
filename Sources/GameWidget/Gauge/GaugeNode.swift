@@ -28,7 +28,7 @@ public class GaugeNode: SKSpriteNode, ObserveableNode {
         self.run(.resize(toWidth: (notification.userInfo?["rate"] as! CGFloat) * self.maxWidth, duration: 0.5))
     }
     
-    public func registerTo(center: NotificationCenter, id: Gauge.ID) {
+    public func registerTo(center: WidgetNotificationSystem, id: Gauge.ID) {
         center.addObserver(self, selector: #selector(receiveValue(notification:)), name: .gaugePostValue(id: id), object: nil)
         center.addObserver(self, selector: #selector(receiveRate(notification:)), name: .gaugePostRate(id: id), object: nil)
         center.addObserver(self, selector: #selector(receiveValueWithAnimation(notification:)), name: .gaugePostValueWithAnimation(id: id), object: nil)

@@ -17,7 +17,7 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
         .init(first: self, second: block())
     }
     
-    public func widgetNodes(center: NotificationCenter) -> [SKNode] {
+    public func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
         self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center)
     }
     
@@ -25,7 +25,7 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
         return SKNode()
     }
     
-    public func combine(node: SKNode, center: NotificationCenter) {
+    public func combine(node: SKNode, center: WidgetNotificationSystem) {
         for i in self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center) {
             node.addChild(i)
         }
@@ -43,7 +43,7 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
         RecursiveDisplay(first: self, second: block())
     }
     
-    public func widgetNodes(center: NotificationCenter) -> [SKNode] {
+    public func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
         self.widgetList.widgetNodes(center: center)
     }
     
@@ -51,7 +51,7 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
         return SKNode()
     }
     
-    public func combine(node: SKNode, center: NotificationCenter) {
+    public func combine(node: SKNode, center: WidgetNotificationSystem) {
         for i in self.widgetList.widgetNodes(center: center) {
             node.addChild(i)
         }

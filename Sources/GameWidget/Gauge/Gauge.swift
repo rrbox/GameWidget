@@ -59,7 +59,7 @@ extension Gauge: Widget, ContextPresentPlugIn {
         return gauge
     }
     
-    public func combine(node: GaugeNode, center: NotificationCenter) {
+    public func combine(node: GaugeNode, center: WidgetNotificationSystem) {
         node.registerTo(center: center, id: self.id)
     }
     

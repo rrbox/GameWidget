@@ -28,7 +28,7 @@ public struct ModifiableWidget<Body, Builder>: Widget where Body: NodeGenerator,
         .init(body: self.body, builder: self.builder.modifiered(mod: mod))
     }
     
-    public func combine(node: Body.Node, center: NotificationCenter) {
+    public func combine(node: Body.Node, center: WidgetNotificationSystem) {
         self.body.combine(node: node, center: center)
     }
 }
