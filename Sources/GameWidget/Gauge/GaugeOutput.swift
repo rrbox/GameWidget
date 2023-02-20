@@ -27,6 +27,7 @@ public protocol GaugeDrawable: NotificationPublisher {
     func send(value: CGFloat, id: Gauge.ID)
     func send(rate: CGFloat, id: Gauge.ID)
     
+    
 }
 
 public extension GaugeDrawable {

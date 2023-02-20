@@ -9,5 +9,5 @@ import SpriteKit
 
 public protocol ObserveableNode: SKNode {
     associatedtype Identifier
-    func registerTo(center: NotificationCenter, id: Identifier)
+    func registerTo(center: WidgetNotificationSystem, id: Identifier)
 }
