@@ -1,4 +1,4 @@
-# HorizontalSingleBarChart
+# Gauge
 
 ## overview
 
@@ -6,7 +6,7 @@
 
 ### Widget type
 
-- ``HorizontalSingleBarChart``
+- ``Gauge``
 
 ### modifiers
 

@@ -19,4 +19,3 @@
 ### Handling button event
 
 - ``ButtonResopnder``
-- ``ButtonNotificationCenter``
