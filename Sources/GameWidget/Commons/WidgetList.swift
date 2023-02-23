@@ -180,23 +180,3 @@ struct Single<T: WidgetListElementType>: WidgetList {
     }
     
 }
-
-/// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
-/// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
-public struct Extension<Content: WidgetList>: WidgetListElementType {
-    
-    var content: Content
-    
-    public init(@GroupBuilder _ content: () -> Content) {
-        self.content = content()
-    }
-    
-    public func addTo(buffer: inout [SKNode], center: WidgetNotificationSystem) {
-        for node in self.content.widgetNodes(center: center) {
-            buffer.append(node)
-        }
-    }
-    
-}
-
-
