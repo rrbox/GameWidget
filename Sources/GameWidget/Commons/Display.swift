@@ -10,15 +10,14 @@ import SpriteKit
 /// SingleWidgetDisplay の place により生成され, 二つの WidgetList(一方は Display)を保持します.
 public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList {
     
-    var first: T
-    var second: U
+    let value: (T, U)
     
     public func place<V: WidgetList>(@GroupBuilder block: () -> V) -> RecursiveDisplay<Self, V> {
-        .init(first: self, second: block())
+        .init(value: (self, block()))
     }
     
     public func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
-        self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center)
+        self.value.0.widgetNodes(center: center) + self.value.1.widgetNodes(center: center)
     }
     
     public func node() -> SKNode {
@@ -26,7 +25,7 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
     }
     
     public func combine(node: SKNode, center: WidgetNotificationSystem) {
-        for i in self.first.widgetNodes(center: center) + self.second.widgetNodes(center: center) {
+        for i in self.value.0.widgetNodes(center: center) + self.value.1.widgetNodes(center: center) {
             node.addChild(i)
         }
     }
@@ -37,14 +36,14 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
 /// Display の place により生成され, 一つの WidgetList を保持します.
 public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
     
-    var widgetList: T
+    let value: T
     
     public func place<U: WidgetList>(@GroupBuilder block: () -> U) -> RecursiveDisplay<Self, U> {
-        RecursiveDisplay(first: self, second: block())
+        .init(value: (self, block()))
     }
     
     public func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
-        self.widgetList.widgetNodes(center: center)
+        self.value.widgetNodes(center: center)
     }
     
     public func node() -> SKNode {
@@ -52,7 +51,7 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
     }
     
     public func combine(node: SKNode, center: WidgetNotificationSystem) {
-        for i in self.widgetList.widgetNodes(center: center) {
+        for i in self.value.widgetNodes(center: center) {
             node.addChild(i)
         }
     }
@@ -65,7 +64,7 @@ public struct Display {
     public init() {}
     
     public func place<T: WidgetList>(@GroupBuilder block: () -> T) -> SingleWidgetDisplay<T> {
-        SingleWidgetDisplay(widgetList: block())
+        SingleWidgetDisplay(value: block())
     }
     
 }
