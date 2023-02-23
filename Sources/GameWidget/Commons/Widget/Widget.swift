@@ -10,18 +10,13 @@ import SpriteKit
 public protocol NodeGenerator {
     associatedtype Node: SKNode
     func node() -> Node
+    func combine(node: Node, center: WidgetNotificationSystem)
 }
 
 public protocol WidgetListElementType {
-    func addTo(buffer: inout [SKNode])
+    func addTo(buffer: inout [SKNode], center: WidgetNotificationSystem)
 }
 
 public protocol Widget: NodeGenerator, WidgetListElementType {
     
-}
-
-public extension WidgetListElementType where Self: NodeGenerator {
-    func addTo(buffer: inout [SKNode]) {
-        buffer.append(self.node())
-    }
 }

@@ -25,10 +25,13 @@ public struct NodeWidget<Content: WidgetList>: Widget, ContextPresentPlugIn {
         result.yScale = context.yScale
         result.zPosition = context.zPosition
         
-        for i in self.content.widgetNodes() {
-            result.addChild(i)
-        }
         return result
+    }
+    
+    public func combine(node: SKNode, center: WidgetNotificationSystem) {
+        for i in self.content.widgetNodes(center: center) {
+            node.addChild(i)
+        }
     }
     
 }

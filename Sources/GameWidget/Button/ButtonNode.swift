@@ -12,11 +12,19 @@ public enum ActionType {
     case alpha
 }
 
+public class ButtonNode: SKNode, PublisherNode {
+    public weak var notificationSystem: WidgetNotificationSystem?
+}
+
 final class ButtonSensor: SKSpriteNode {
     
     override var isUserInteractionEnabled: Bool {
         get { true }
         set {}
+    }
+    
+    var buttonNode: ButtonNode? {
+        self.parent as? ButtonNode
     }
     
     var roleName: Button.Role?
@@ -63,8 +71,7 @@ final class ButtonSensor: SKSpriteNode {
         self.parent?.removeAllActions()
         self.parent?.run(self.selectAction!)
         self.isSelected = true
-        //        UserInterfaceSystem.activated?.center.post(name: .buttonTouchUp, object: nil, userInfo: ["buttonName": self.roleName!])
-        ButtonNotificationCenter.touchDownButton(self.roleName!)
+        self.buttonNode?.notificationSystem?.touchDownButton(self.roleName!)
     }
     
     func touchMoved(toPoint pos: CGPoint) {
@@ -82,8 +89,7 @@ final class ButtonSensor: SKSpriteNode {
                 self.selectEndAction!,
                 SKAction.run {
                     self.isSelected = false
-                    //                    UserInterfaceSystem.activated?.center.post(name: .buttonTouchUp, object: nil, userInfo: ["buttonName": self.roleName!])
-                    ButtonNotificationCenter.touchUpButton(self.roleName!)
+                    self.buttonNode?.notificationSystem?.touchUpButton(self.roleName!)
                 }
             ]))
         }

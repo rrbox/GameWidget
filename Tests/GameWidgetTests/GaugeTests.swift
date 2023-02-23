@@ -11,7 +11,7 @@ import SpriteKit
 
 final class GaugeTests: XCTestCase {
     func testModifiers() {
-        let gauge = Gauge(name: .init("test"))
+        let gauge = Gauge(id: .init("test"))
             .modifiable
             .position(CGPoint(x: 1, y: 1))
             .color(.red)
