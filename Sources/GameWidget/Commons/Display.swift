@@ -7,12 +7,32 @@
 
 import SpriteKit
 
-/// SingleWidgetDisplay の place により生成され, 二つの WidgetList(一方は Display)を保持します.
-public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList {
+/// Widget のレイアウトの起点. place メソッドチェーンで無制限に Widget を配置できます.
+/// - note: 一回の place メソッドで配置可能な widget の数は 10 個までです.
+public struct Display {
+    public init() {}
     
-    let value: (T, U)
+    /// ``Display/Single`` の ``Display/Single/place(block:)`` により生成され, 二つの ``WidgetList`` を保持します.
+    public struct Link<T: WidgetList, U: WidgetList> {
+        let value: (T, U)
+    }
     
-    public func place<V: WidgetList>(@GroupBuilder block: () -> V) -> RecursiveDisplay<Self, V> {
+    /// 一つの widget から ``Display/Link`` を生成するためのラッパー.
+    /// ``Display`` の ``Display/place(block:)`` により生成され, 一つの ``WidgetList`` を保持します.
+    public struct Single<T: WidgetList> {
+        let value: T
+    }
+    
+}
+
+public extension Display {
+    func place<T: WidgetList>(@GroupBuilder block: () -> T) -> Display.Single<T> {
+        .init(value: block())
+    }
+}
+
+extension Display.Link: Widget, WidgetList {
+    public func place<V: WidgetList>(@GroupBuilder block: () -> V) -> Display.Link<Self, V> {
         .init(value: (self, block()))
     }
     
@@ -29,16 +49,10 @@ public struct RecursiveDisplay<T: WidgetList, U: WidgetList>: Widget, WidgetList
             node.addChild(i)
         }
     }
-    
 }
 
-/// 一つの widget から RecursiveDisplay を生成するためのラッパー.
-/// Display の place により生成され, 一つの WidgetList を保持します.
-public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
-    
-    let value: T
-    
-    public func place<U: WidgetList>(@GroupBuilder block: () -> U) -> RecursiveDisplay<Self, U> {
+extension Display.Single: Widget, WidgetList {
+    public func place<U: WidgetList>(@GroupBuilder block: () -> U) -> Display.Link<Self, U> {
         .init(value: (self, block()))
     }
     
@@ -55,17 +69,4 @@ public struct SingleWidgetDisplay<T: WidgetList>: Widget, WidgetList {
             node.addChild(i)
         }
     }
-    
 }
-
-/// Widget のレイアウトの起点. place メソッドチェーンで無制限に Widget を配置できます.
-/// - note: 一回の place メソッドで配置可能な widget の数は 10 個までです.
-public struct Display {
-    public init() {}
-    
-    public func place<T: WidgetList>(@GroupBuilder block: () -> T) -> SingleWidgetDisplay<T> {
-        SingleWidgetDisplay(value: block())
-    }
-    
-}
-
