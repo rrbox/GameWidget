@@ -19,7 +19,7 @@ public extension NodeGenerator {
         return (node, center)
     }
     
-    func createInteraciveNode(_ center: WidgetNotificationSystem) -> Node {
+    func node(_ center: WidgetNotificationSystem) -> Node {
         let node = self.node()
         self.combine(node: node, center: center)
         return node
