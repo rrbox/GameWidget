@@ -16,26 +16,20 @@ import SpriteKit
     
     public static func buildBlock<C0: WidgetListElementType,
                                   C1: WidgetListElementType>(_ c0: C0, _ c1: C1) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
+        WidgetList2(c0, c1)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
                                   C1: WidgetListElementType,
                                   C2: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
+        WidgetList3(c0, c1, c2)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
                                   C1: WidgetListElementType,
                                   C2: WidgetListElementType,
                                   C3: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
+        WidgetList4(c0, c1, c2, c3)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -43,11 +37,7 @@ import SpriteKit
                                   C2: WidgetListElementType,
                                   C3: WidgetListElementType,
                                   C4: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
+        WidgetList5(c0, c1, c2, c3, c4)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -56,12 +46,7 @@ import SpriteKit
                                   C3: WidgetListElementType,
                                   C4: WidgetListElementType,
                                   C5: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
-            .append(c5)
+        WidgetList6(c0, c1, c2, c3, c4, c5)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -71,13 +56,7 @@ import SpriteKit
                                   C4: WidgetListElementType,
                                   C5: WidgetListElementType,
                                   C6: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
-            .append(c5)
-            .append(c6)
+        WidgetList7(c0, c1, c2, c3, c4, c5, c6)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -88,14 +67,7 @@ import SpriteKit
                                   C5: WidgetListElementType,
                                   C6: WidgetListElementType,
                                   C7: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
-            .append(c5)
-            .append(c6)
-            .append(c7)
+        WidgetList8(c0, c1, c2, c3, c4, c5, c6, c7)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -107,15 +79,7 @@ import SpriteKit
                                   C6: WidgetListElementType,
                                   C7: WidgetListElementType,
                                   C8: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
-            .append(c5)
-            .append(c6)
-            .append(c7)
-            .append(c8)
+        WidgetList9(c0, c1, c2, c3, c4, c5, c6, c7, c8)
     }
     
     public static func buildBlock<C0: WidgetListElementType,
@@ -128,55 +92,11 @@ import SpriteKit
                                   C7: WidgetListElementType,
                                   C8: WidgetListElementType,
                                   C9: WidgetListElementType>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4, _ c5: C5, _ c6: C6, _ c7: C7, _ c8: C8, _ c9: C9) -> some WidgetListProtocol {
-        Single(widget: c0)
-            .append(c1)
-            .append(c2)
-            .append(c3)
-            .append(c4)
-            .append(c5)
-            .append(c6)
-            .append(c7)
-            .append(c8)
-            .append(c9)
+        WidgetList10(c0, c1, c2, c3, c4, c5, c6, c7, c8, c9)
     }
     
 }
 
 public protocol WidgetListProtocol {
     func widgetNodes(center: WidgetNotificationSystem) -> [SKNode]
-}
-
-/// 再帰可能. widget のペアです. オーバーヘッドはありません.
-public struct RecursiveGroup<T: WidgetListProtocol, U: WidgetListElementType>: WidgetListProtocol {
-    
-    var first: T
-    var second: U
-    
-    func append<V: WidgetListElementType>(_ newWidget: V) -> RecursiveGroup<Self, V> {
-        .init(first: self, second: newWidget)
-    }
-    
-    public func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
-        var result = self.first.widgetNodes(center: center)
-        self.second.addTo(buffer: &result, center: center)
-        return result
-    }
-    
-}
-
-// 一つの widget から RecursiveGroup を生成するためのラッパー.
-struct Single<T: WidgetListElementType>: WidgetListProtocol {
-    
-    var widget: T
-    
-    func append<U: WidgetListElementType>(_ newWidget: U) -> RecursiveGroup<Self, U> {
-        .init(first: self, second: newWidget)
-    }
-    
-    func widgetNodes(center: WidgetNotificationSystem) -> [SKNode] {
-        var result = [SKNode]()
-        self.widget.addTo(buffer: &result, center: center)
-        return result
-    }
-    
 }
