@@ -10,7 +10,7 @@ import SpriteKit
 import GameWidget
 
 final class GroupTest: XCTestCase {
-    func generateNodesNameReduced<T: WidgetList>(@GroupBuilder _ list: () -> T) -> String {
+    func generateNodesNameReduced<T: WidgetListProtocol>(@GroupBuilder _ list: () -> T) -> String {
         list().widgetNodes(center: WidgetNotificationSystem()).reduce(into: "") { partialResult, node in
             guard let name = node.name else {
                 XCTFail()

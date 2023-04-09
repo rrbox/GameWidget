@@ -13,26 +13,26 @@ public struct Display {
     public init() {}
     
     /// ``Display/Single`` の ``Display/Single/place(block:)`` により生成され, 二つの ``WidgetList`` を保持します.
-    public struct Link<T: WidgetList, U: WidgetList> {
+    public struct Link<T: WidgetListProtocol, U: WidgetListProtocol> {
         let value: (T, U)
     }
     
     /// 一つの widget から ``Display/Link`` を生成するためのラッパー.
     /// ``Display`` の ``Display/place(block:)`` により生成され, 一つの ``WidgetList`` を保持します.
-    public struct Single<T: WidgetList> {
+    public struct Single<T: WidgetListProtocol> {
         let value: T
     }
     
 }
 
 public extension Display {
-    func place<T: WidgetList>(@GroupBuilder block: () -> T) -> Display.Single<T> {
+    func place<T: WidgetListProtocol>(@GroupBuilder block: () -> T) -> Display.Single<T> {
         .init(value: block())
     }
 }
 
-extension Display.Link: Widget, WidgetList {
-    public func place<V: WidgetList>(@GroupBuilder block: () -> V) -> Display.Link<Self, V> {
+extension Display.Link: Widget, WidgetListProtocol {
+    public func place<V: WidgetListProtocol>(@GroupBuilder block: () -> V) -> Display.Link<Self, V> {
         .init(value: (self, block()))
     }
     
@@ -51,8 +51,8 @@ extension Display.Link: Widget, WidgetList {
     }
 }
 
-extension Display.Single: Widget, WidgetList {
-    public func place<U: WidgetList>(@GroupBuilder block: () -> U) -> Display.Link<Self, U> {
+extension Display.Single: Widget, WidgetListProtocol {
+    public func place<U: WidgetListProtocol>(@GroupBuilder block: () -> U) -> Display.Link<Self, U> {
         .init(value: (self, block()))
     }
     

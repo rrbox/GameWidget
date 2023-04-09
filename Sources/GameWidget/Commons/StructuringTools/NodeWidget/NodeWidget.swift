@@ -8,7 +8,7 @@
 import SpriteKit
 
 /// 10 個以下の widget を一つの widget としてまとめます. 座標, スケール, 回転を内包するコンテンツと共に調整することができます.
-public struct NodeWidget<Content: WidgetList>: Widget, ContextPresentPlugIn {
+public struct NodeWidget<Content: WidgetListProtocol>: Widget, ContextPresentPlugIn {
     public typealias Context = NodeContext
     public var content: Content
     

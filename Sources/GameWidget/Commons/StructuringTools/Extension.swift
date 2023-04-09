@@ -9,7 +9,7 @@ import SpriteKit
 
 /// widget 数を増やす際に使用します. 10 個以下の widget を内包することができます.
 /// - note: モディファイアはありませんが, メモリのオーバーヘッドがありません.
-public struct Extension<Content: WidgetList>: WidgetListElementType {
+public struct Extension<Content: WidgetListProtocol>: WidgetListElementType {
     
     var content: Content
     
