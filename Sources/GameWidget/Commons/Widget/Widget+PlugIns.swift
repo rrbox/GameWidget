@@ -18,6 +18,12 @@ public extension NodeGenerator {
         self.combine(node: node, center: center)
         return (node, center)
     }
+    
+    func node(_ center: WidgetNotificationSystem) -> Node {
+        let node = self.node()
+        self.combine(node: node, center: center)
+        return node
+    }
 }
 
 public extension WidgetListElementType where Self: NodeGenerator {
