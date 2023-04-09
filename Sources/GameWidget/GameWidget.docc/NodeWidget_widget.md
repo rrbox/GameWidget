@@ -1,4 +1,4 @@
-#  Node
+#  NodeWidget
 
 ## overview
 
@@ -6,7 +6,7 @@
 
 ### Widget type
 
-- ``Node``
+- ``NodeWidget``
 
 ### modifiers
 

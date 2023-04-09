@@ -15,15 +15,15 @@ User interface widgets for SpriteKit.
 ### Widgets
 
 - <doc:Button_widget>
-- <doc:HorizontalSingleBarChart_widget>
+- <doc:Gauge_widget>
 - <doc:ControllerArea_widget>
-- <doc:Node_widget>
+- <doc:NodeWidget_widget>
 
 ### Layout widgets
 
 - ``Display``
 - ``Extension``
-- <doc:Node_widget>
+- <doc:NodeWidget_widget>
 
 ### Create custom Widget
 

@@ -13,14 +13,16 @@ let button = Button(.init("test"))
     .node()
 ```
 
-## Create node instance
+## Create user inerface models
 
-Widget から SKNode サブクラスインスタンスを作成するには, Widget ととして定義された構造体から実行できる `node()` を使用します.
+Widget から UI モデルを作成するには, Widget として定義された構造体から実行できる `createModels()` を使用します.
 
 ```swift
-let button = Button(.init("test"))
-    .node()
+let (button, notificationCenter) = Button(.init("test"))
+    .createModels()
 ```
+
+`createModels()` の返り値は, その Widget に関連づけられた `SKNode` サブクラスと, そのノードと紐づけられた ``WidgetNotificationSystem`` のインスタンスです.
 
 ## Modify widget
 

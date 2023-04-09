@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Entity.swift
+//
 //
 //  Created by rrbox on 2022/06/18.
 //
@@ -11,8 +11,12 @@ final private class UserInterfaceBaseNode: GKSKNodeComponent {}
 
 final public class UserInterfaceDisplay<T: Widget>: GKSKNodeComponent {
     
+    public let nofiticationSystem: WidgetNotificationSystem
+    
     init(_ display: T) {
-        super.init(node: display.node())
+        let (node, sys) = display.createModels()
+        self.nofiticationSystem = sys
+        super.init(node: node)
     }
     
     required init?(coder: NSCoder) {
